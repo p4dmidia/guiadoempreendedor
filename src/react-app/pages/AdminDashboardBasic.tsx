@@ -31,11 +31,11 @@ export default function AdminDashboardBasic() {
   useEffect(() => {
     const load = async () => {
       const supabase = getSupabase()
-      const { data: aff } = await orgSelect('affiliates', 'id, full_name, email, plan, status, referred_by_code, created_at, subscription_end_date')
+      const resAff: any = await (orgSelect('affiliates', 'id, full_name, email, plan, status, referred_by_code, created_at, subscription_end_date') as any)
         .order('created_at', { ascending: false })
-      setAffiliates((aff || []) as Affiliate[])
-      const { data: com } = await orgSelect('commissions', 'amount, status')
-      const pend = (com || []).filter((c: CommissionRow) => c.status === 'pending').reduce((s: number, r: CommissionRow) => s + (Number(r.amount) || 0), 0)
+      setAffiliates(((resAff?.data as any) || []) as any)
+      const resCom: any = await orgSelect('commissions', 'amount, status') as any
+      const pend = ((resCom?.data as any[]) || []).filter((c: any) => c.status === 'pending').reduce((s: number, r: any) => s + (Number(r.amount) || 0), 0)
       setPendingCommissions(pend)
       setLoading(false)
     }

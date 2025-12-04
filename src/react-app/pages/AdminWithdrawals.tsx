@@ -21,12 +21,13 @@ export default function AdminWithdrawals() {
 
   useEffect(() => {
     const load = async () => {
-      const { data } = await orgSelect('withdrawals', 'id, affiliate_id, amount, status, requested_at, processed_at').order('requested_at', { ascending: false })
-      const list = (data || []) as Withdrawal[]
+      const res: any = await (orgSelect('withdrawals', 'id, affiliate_id, amount, status, requested_at, processed_at') as any).order('requested_at', { ascending: false })
+      const list = ((res?.data as any) || []) as any
       setRows(list)
       const ids = Array.from(new Set(list.map(r => r.affiliate_id)))
       if (ids.length) {
-        const { data: affs } = await orgSelect('affiliates', 'id, full_name, pix_key').in('id', ids)
+        const resAff: any = await (orgSelect('affiliates', 'id, full_name, pix_key') as any).in('id', ids)
+        const affs = (resAff?.data as any) || []
         const map: Record<number, Affiliate> = {}
         (affs || []).forEach((a: any) => { map[a.id] = a })
         setAffMap(map)

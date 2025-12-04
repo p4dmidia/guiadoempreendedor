@@ -17,8 +17,8 @@ export default function AdminAffiliates() {
 
   useEffect(() => {
     const load = async () => {
-      const { data } = await orgSelect('affiliates', 'id, full_name, email, plan, status, referral_code, created_at').order('created_at', { ascending: false })
-      setRows((data || []) as Affiliate[])
+      const res: any = await (orgSelect('affiliates', 'id, full_name, email, plan, status, referral_code, created_at') as any).order('created_at', { ascending: false })
+      setRows(((res?.data as any) || []) as any)
     }
     load()
   }, [])
@@ -26,8 +26,8 @@ export default function AdminAffiliates() {
   const openNetwork = async (row: Affiliate) => {
     setOpenId(row.id)
     if (!row.referral_code) { setChildren([]); return }
-    const { data } = await orgSelect('affiliates', 'id, full_name, plan, created_at').eq('referred_by_code', row.referral_code)
-    setChildren((data || []) as Child[])
+    const res: any = await (orgSelect('affiliates', 'id, full_name, plan, created_at') as any).eq('referred_by_code', row.referral_code)
+    setChildren(((res?.data as any) || []) as any)
   }
 
   const close = () => { setOpenId(null); setChildren([]) }

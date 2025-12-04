@@ -7,7 +7,6 @@ export default function AdminSidebar() {
   const logout = () => { window.location.href = '/admin/login' }
   return (
     <aside className="w-64 bg-primary text-white shadow-sm min-h-screen p-6 sticky top-0">
-      {(() => { const [failed] = [false]; return null })()}
       {/* Logo with fallback text */}
       <SidebarLogo />
       <nav className="space-y-2">
