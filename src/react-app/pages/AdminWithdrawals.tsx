@@ -26,8 +26,12 @@ export default function AdminWithdrawals() {
       setRows(list)
       const ids = Array.from(new Set(list.map(r => r.affiliate_id)))
       if (ids.length) {
-        const resAff: any = await (orgSelect('affiliates', 'id, full_name, pix_key') as any).in('id', ids)
-        const affs = (resAff?.data as any) || []
+      const supabase = (await import('@/react-app/lib/supabaseClient')).getSupabase()
+      const { data: affs } = await supabase
+        .from('affiliates')
+        .select('id, full_name, pix_key')
+        .eq('organization_id', (await import('@/react-app/lib/org')).ORG_ID)
+        .in('id', ids)
         const map: Record<number, Affiliate> = {}
         (affs || []).forEach((a: any) => { map[a.id] = a })
         setAffMap(map)
