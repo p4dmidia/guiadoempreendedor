@@ -19,7 +19,9 @@ export default function ReferralCard() {
       const { data: u } = await supabase.auth.getUser()
       const uid = u.user?.id
       if (!uid) return
-      const { data } = await orgSelect('affiliates', 'id, plan, referral_code').eq('user_id', uid).maybeSingle()
+      const res: any = await (orgSelect('affiliates', 'id, plan, referral_code') as any).eq('user_id', uid).maybeSingle()
+      const data = res?.data as any
+      if (!data || (typeof data === 'string' && (data as any)?.error)) { setAffiliate(null); return }
       let aff = data as Affiliate | null
       if (aff && !aff.referral_code) {
         const code = `REF-${uid.slice(0,8)}-${Math.random().toString(36).slice(2,6).toUpperCase()}`

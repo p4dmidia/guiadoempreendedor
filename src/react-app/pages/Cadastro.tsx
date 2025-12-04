@@ -73,8 +73,9 @@ export default function Cadastro() {
     init()
     const loadReferrer = async () => {
       if (referralCode) {
-        const { data } = await orgSelect('affiliates', 'full_name').eq('referral_code', referralCode).maybeSingle()
-        if (data?.full_name) setReferrerName(data.full_name)
+        const res: any = await (orgSelect('affiliates', 'full_name') as any).eq('referral_code', referralCode).maybeSingle()
+        const data = res?.data as any
+        if (data && typeof data === 'object' && 'full_name' in data) setReferrerName(String(data.full_name))
       }
     }
     loadReferrer()

@@ -23,7 +23,6 @@ interface NetworkTreeProps {
 
 // Build tree structure from flat referrals array
 function buildTree(referrals: Referral[]): TreeNode[] {
-  const roots: TreeNode[] = [];
   const nodesByLevel: Map<number, TreeNode[]> = new Map();
 
   // Group referrals by level
@@ -147,7 +146,7 @@ function NetworkNode({ node, onNodeClick }: { node: TreeNode; onNodeClick: (refe
           )}
 
           <div className="flex gap-8 pt-8">
-            {node.children.map((child, index) => (
+            {node.children.map((child) => (
               <div key={child.referral.id} className="relative">
                 {/* Vertical line to child */}
                 <div className="absolute bottom-full left-1/2 w-0.5 h-8 bg-gray-300 -translate-x-1/2"></div>
