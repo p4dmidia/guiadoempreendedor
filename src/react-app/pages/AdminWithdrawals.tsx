@@ -22,18 +22,20 @@ export default function AdminWithdrawals() {
   useEffect(() => {
     const load = async () => {
       const res: any = await (orgSelect('withdrawals', 'id, affiliate_id, amount, status, requested_at, processed_at') as any).order('requested_at', { ascending: false })
-      const list = ((res?.data as any) || []) as any
-      setRows(list)
-      const ids = Array.from(new Set(list.map(r => r.affiliate_id)))
+      const listRaw = res?.data as any
+      const listArr: Withdrawal[] = Array.isArray(listRaw) ? listRaw : []
+      setRows(listArr)
+      const ids = Array.from(new Set(listArr.map((r: any) => r.affiliate_id)))
       if (ids.length) {
       const supabase = (await import('@/react-app/lib/supabaseClient')).getSupabase()
-      const { data: affs } = await supabase
-        .from('affiliates')
-        .select('id, full_name, pix_key')
-        .eq('organization_id', (await import('@/react-app/lib/org')).ORG_ID)
-        .in('id', ids)
+        const { data: affs } = await supabase
+          .from('affiliates')
+          .select('id, full_name, pix_key')
+          .eq('organization_id', (await import('@/react-app/lib/org')).ORG_ID)
+          .in('id', ids)
         const map: Record<number, Affiliate> = {}
-        (affs || []).forEach((a: any) => { map[a.id] = a })
+        const affsArr: any[] = Array.isArray(affs) ? affs : []
+        affsArr.forEach((a: any) => { map[a.id] = a })
         setAffMap(map)
       }
     }
