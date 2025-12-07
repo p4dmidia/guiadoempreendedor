@@ -1,18 +1,14 @@
-export const config = {
-  runtime: 'edge'
-}
-
-export default async function handler(req: Request): Promise<Response> {
-  if (req.method !== 'POST') return new Response('Method Not Allowed', { status: 405 })
-  const body = await req.json()
+export default async function handler(req: any, res: any) {
+  if (req.method !== 'POST') return res.status(405).send('Method Not Allowed')
+  const body = req.body
   const topic = body.topic || body.type
   const id = body?.data?.id || body?.id
-  if (topic !== 'payment' || !id) return Response.json({ ok: true })
+  if (topic !== 'payment' || !id) return res.status(200).json({ ok: true })
 
   const token = process.env.MP_ACCESS_TOKEN as string
   const supaUrl = process.env.SUPABASE_URL as string
   const supaKey = process.env.SUPABASE_SERVICE_ROLE_KEY as string
-  if (!token || !supaUrl || !supaKey) return new Response('Missing env', { status: 500 })
+  if (!token || !supaUrl || !supaKey) return res.status(500).send('Missing env')
 
   const payResp = await fetch(`https://api.mercadopago.com/v1/payments/${id}`, {
     headers: { Authorization: `Bearer ${token}` },
@@ -39,6 +35,6 @@ export default async function handler(req: Request): Promise<Response> {
       })
     }
   }
-  return Response.json({ ok: true })
+  return res.status(200).json({ ok: true })
 }
 

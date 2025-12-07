@@ -1,9 +1,9 @@
-export default async function handler(req: Request): Promise<Response> {
-  if (req.method !== 'POST') return new Response('Method Not Allowed', { status: 405 })
-  const body = await req.json()
+export default async function handler(req: any, res: any) {
+  if (req.method !== 'POST') return res.status(405).send('Method Not Allowed')
+  const body = req.body
   const token = process.env.MP_ACCESS_TOKEN as string
   const site = process.env.SITE_URL as string
-  if (!token) return new Response('Missing MP_ACCESS_TOKEN', { status: 500 })
+  if (!token) return res.status(500).send('Missing MP_ACCESS_TOKEN')
 
   const parsePrice = (v: unknown): number => {
     if (typeof v === 'number') return v
@@ -45,6 +45,6 @@ export default async function handler(req: Request): Promise<Response> {
     body: JSON.stringify(payload),
   })
   const data = await resp.json()
-  return Response.json({ init_point: data.init_point })
+  return res.status(200).json({ init_point: data.init_point })
 }
 
