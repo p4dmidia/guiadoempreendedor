@@ -45,6 +45,12 @@ export default async function handler(req: any, res: any) {
     body: JSON.stringify(payload),
   })
   const data = await resp.json()
-  return res.status(200).json({ init_point: data.init_point })
+  console.log('MP RESPONSE FULL:', JSON.stringify(data))
+  const init_point = data?.init_point || data?.body?.init_point || data?.response?.init_point || data?.sandbox_init_point || data?.point_of_interaction?.transaction_data?.ticket_url
+  if (!init_point) {
+    console.error('Payment link not generated:', data)
+    return res.status(500).json({ error: 'Link de pagamento não gerado pelo MP', raw: data })
+  }
+  return res.status(200).json({ init_point })
 }
 
