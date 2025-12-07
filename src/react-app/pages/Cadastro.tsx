@@ -209,11 +209,13 @@ export default function Cadastro() {
             organization_id: ORG_ID,
           }),
         })
-        const pref = await prefResp.json()
-        if (pref?.init_point) {
-          window.location.href = pref.init_point
+        const data = await prefResp.json()
+        console.log('RESPOSTA MP:', data)
+        if (data && data.init_point) {
+          window.location.href = data.init_point
         } else {
-          alert('Erro ao gerar pagamento')
+          console.error('Link de pagamento não encontrado:', data)
+          alert('Erro: A API não retornou o link de pagamento.')
         }
       }
     } catch (_error) {
