@@ -21,13 +21,13 @@ export default async function handler(req: any, res: any) {
   const payload = {
     items: [
       {
-        title: body.item_title,
+        title: body.title ?? body.item_title,
         unit_price: parsePrice(body.unit_price),
-        quantity: 1,
+        quantity: Number(body.quantity ?? 1),
       },
     ],
     external_reference: JSON.stringify({ user_id: body.user_id, organization_id: body.organization_id, plan_type: body.plan_type }),
-    payer: { email: body.payer_email },
+    payer: { email: body.email ?? body.payer_email },
     back_urls: {
       success: `${site}/payment-success?plan=${body.plan_type}`,
       failure: `${site}/`,

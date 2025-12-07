@@ -48,6 +48,7 @@ export default function Cadastro() {
   const referralCode = searchParams.get('ref');
   const [refCode, setRefCode] = useState<string>(referralCode || '')
   const [referrerName, setReferrerName] = useState<string>('')
+  const [buttonLabel, setButtonLabel] = useState('Ir para Pagamento Seguro')
 
   const [formData, setFormData] = useState({
     nome: '',
@@ -181,7 +182,8 @@ export default function Cadastro() {
       if (error) {
         alert('Erro ao criar cadastro. Tente novamente.')
       } else {
-        const item_title = `Plano ${selectedPlan.name}`
+        setButtonLabel('Gerando link de pagamento...')
+        const title = `Plano ${selectedPlan.name}`
         const unit_price = (() => {
           let s = String(selectedPlan.price)
           s = s.replace(/[R$\s]/gi, '')
@@ -193,29 +195,32 @@ export default function Cadastro() {
           const n = parseFloat(s)
           return isNaN(n) ? 0 : n
         })()
+
         const prefResp = await fetch('/api/create-mp-preference', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            item_title,
+            title,
             unit_price,
+            quantity: 1,
+            email: formData.email,
             user_id: uid,
-            organization_id: ORG_ID,
             plan_type: planKey,
-            payer_email: formData.email,
+            organization_id: ORG_ID,
           }),
         })
         const pref = await prefResp.json()
         if (pref?.init_point) {
           window.location.href = pref.init_point
         } else {
-          navigate('/dashboard')
+          alert('Erro ao gerar pagamento')
         }
       }
     } catch (_error) {
-      alert('Erro ao criar cadastro. Tente novamente.')
+      alert('Erro ao gerar pagamento')
     } finally {
       setIsSubmitting(false)
+      setButtonLabel('Ir para Pagamento Seguro')
     }
   };
 
@@ -419,7 +424,7 @@ export default function Cadastro() {
                   disabled={isSubmitting}
                   className="w-full bg-cta text-white py-4 rounded-md font-bold hover:bg-opacity-90 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group mt-8 disabled:opacity-50"
                 >
-                  {isSubmitting ? 'Processando...' : 'Ir para Pagamento Seguro'}
+                  {buttonLabel}
                   {!isSubmitting && <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />}
                 </button>
 
