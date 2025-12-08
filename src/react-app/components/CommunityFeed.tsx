@@ -72,7 +72,7 @@ export default function CommunityFeed({ isAdmin, affiliateId }: { isAdmin: boole
     const ids = Array.from(new Set(list.map(p => p.affiliate_id).filter((v): v is number => typeof v === 'number')))
     if (ids.length) {
       const supabase = getSupabase()
-      const { data } = await supabase.from('affiliates').select('id,full_name').in('id', ids)
+      const { data } = await (supabase.from('affiliates').select('id,full_name') as any).in('id', ids)
       const map: Record<string, string> = {}
       (data || []).forEach((r: any) => { map[String(r.id)] = r.full_name })
       setAffiliateNames(map)
@@ -230,4 +230,3 @@ export default function CommunityFeed({ isAdmin, affiliateId }: { isAdmin: boole
     </div>
   )
 }
-
