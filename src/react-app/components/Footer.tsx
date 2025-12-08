@@ -20,6 +20,7 @@ export default function Footer() {
               <li><a href="#" className="hover:text-accent transition-colors">Sobre Nós</a></li>
               <li><a href="#" className="hover:text-accent transition-colors">Termos de Uso</a></li>
               <li><a href="#" className="hover:text-accent transition-colors">Política de Privacidade</a></li>
+              <li><a href="/blog" className="hover:text-accent transition-colors">Blog</a></li>
             </ul>
           </div>
           

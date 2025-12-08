@@ -24,7 +24,7 @@ export default function Navbar() {
         
         <div className="hidden md:flex items-center gap-8">
           <button 
-            onClick={() => scrollToSection('inicio')}
+            onClick={() => navigate('/')}
             className="text-white hover:text-accent transition-colors"
           >
             Início
@@ -40,6 +40,12 @@ export default function Navbar() {
             className="text-white hover:text-accent transition-colors"
           >
             Planos
+          </button>
+          <button 
+            onClick={() => navigate('/blog')}
+            className="text-white hover:text-accent transition-colors"
+          >
+            Blog
           </button>
           <button 
             onClick={() => navigate('/login')}
@@ -64,7 +70,7 @@ export default function Navbar() {
         <div className="md:hidden mt-4 pt-4 border-t border-white/20">
           <div className="flex flex-col gap-4">
             <button 
-              onClick={() => { setMobileMenuOpen(false); scrollToSection('inicio'); }}
+              onClick={() => { setMobileMenuOpen(false); navigate('/'); }}
               className="text-white text-left hover:text-accent transition-colors"
             >
               Início
@@ -80,6 +86,12 @@ export default function Navbar() {
               className="text-white text-left hover:text-accent transition-colors"
             >
               Planos
+            </button>
+            <button 
+              onClick={() => { setMobileMenuOpen(false); navigate('/blog'); }}
+              className="text-white text-left hover:text-accent transition-colors"
+            >
+              Blog
             </button>
             <button 
               onClick={() => { setMobileMenuOpen(false); navigate('/login'); }}

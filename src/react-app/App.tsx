@@ -10,11 +10,18 @@ import AdminDashboardPage from "@/react-app/pages/AdminDashboardBasic";
 import AdminWithdrawalsPage from "@/react-app/pages/AdminWithdrawals";
 import AdminSettingsPage from "@/react-app/pages/AdminSettings";
 import AdminAffiliatesPage from "@/react-app/pages/AdminAffiliates";
+import AdminBlogListPage from "@/react-app/pages/admin/blog/AdminBlogList";
+import AdminBlogNewPage from "@/react-app/pages/admin/blog/AdminBlogNew";
+import AdminBlogEditPage from "@/react-app/pages/admin/blog/AdminBlogEdit";
+import AdminCommunityPage from "@/react-app/pages/AdminCommunity";
 import AreaMembrosPage from "@/react-app/pages/AreaMembros";
 import PaymentSuccessPage from "@/react-app/pages/PaymentSuccess";
 import AdminRoute from "@/react-app/auth/AdminRoute";
 import FinanceiroPage from "@/react-app/pages/Financeiro";
 import PerfilPage from "@/react-app/pages/Perfil";
+import BlogListPage from "@/react-app/pages/blog/BlogList";
+import BlogPostPage from "@/react-app/pages/blog/BlogPost";
+import MemberCommunityPage from "@/react-app/pages/MemberCommunity";
 
 export default function App() {
   return (
@@ -42,6 +49,26 @@ export default function App() {
             <AdminAffiliatesPage />
           </AdminRoute>
         } />
+        <Route path="/admin/comunidade" element={
+          <AdminRoute>
+            <AdminCommunityPage />
+          </AdminRoute>
+        } />
+        <Route path="/admin/blog" element={
+          <AdminRoute>
+            <AdminBlogListPage />
+          </AdminRoute>
+        } />
+        <Route path="/admin/blog/novo" element={
+          <AdminRoute>
+            <AdminBlogNewPage />
+          </AdminRoute>
+        } />
+        <Route path="/admin/blog/:id/editar" element={
+          <AdminRoute>
+            <AdminBlogEditPage />
+          </AdminRoute>
+        } />
         
         {/* Member routes - wrapped in AuthProvider */}
         <Route path="/*" element={
@@ -56,6 +83,9 @@ export default function App() {
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/dashboard/financeiro" element={<FinanceiroPage />} />
               <Route path="/dashboard/perfil" element={<PerfilPage />} />
+              <Route path="/dashboard/comunidade" element={<MemberCommunityPage />} />
+              <Route path="/blog" element={<BlogListPage />} />
+              <Route path="/blog/:slug" element={<BlogPostPage />} />
             </Routes>
           </AuthProvider>
         } />

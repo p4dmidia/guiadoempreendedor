@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, Menu, X, DollarSign, User, Home } from 'lucide-react';
+import { LogOut, Menu, X, DollarSign, User, Home, MessageSquare } from 'lucide-react';
 
 interface Member {
   plan: string;
@@ -58,6 +58,15 @@ export default function DashboardNavbar({ member, onLogout }: DashboardNavbarPro
             <DollarSign className="w-5 h-5" />
             Financeiro
           </button>
+          {member.plan !== 'assinante' && (
+            <button 
+              onClick={() => navigate('/dashboard/comunidade')}
+              className="flex items-center gap-2 text-white hover:text-accent transition-colors"
+            >
+              <MessageSquare className="w-5 h-5" />
+              Comunidade
+            </button>
+          )}
           <button 
             onClick={() => navigate('/dashboard/perfil')}
             className="flex items-center gap-2 text-white hover:text-accent transition-colors"
@@ -107,6 +116,15 @@ export default function DashboardNavbar({ member, onLogout }: DashboardNavbarPro
               <DollarSign className="w-5 h-5" />
               Financeiro
             </button>
+            {member.plan !== 'assinante' && (
+              <button 
+                onClick={() => navigate('/dashboard/comunidade')}
+                className="flex items-center gap-2 text-white hover:text-accent transition-colors"
+              >
+                <MessageSquare className="w-5 h-5" />
+                Comunidade
+              </button>
+            )}
             <button 
               onClick={() => navigate('/dashboard/perfil')}
               className="flex items-center gap-2 text-white hover:text-accent transition-colors"

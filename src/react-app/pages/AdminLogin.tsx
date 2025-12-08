@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, Shield } from 'lucide-react';
+import { Lock, Eye, EyeOff } from 'lucide-react';
 import { getSupabase } from '@/react-app/lib/supabaseClient'
 import { ORG_ID } from '@/react-app/lib/org'
 
@@ -12,6 +12,7 @@ export default function AdminLogin() {
   });
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,9 +57,11 @@ export default function AdminLogin() {
         <div className="bg-white rounded-lg shadow-2xl p-8">
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-primary rounded-full mb-4">
-              <Shield className="w-10 h-10 text-white" />
-            </div>
+            <img 
+              src="https://mocha-cdn.com/019ae075-432d-7f0b-9b71-b1650e85c237/Fundo-Escuro.png" 
+              alt="Guia Portal Empreendedor"
+              className="h-24 mx-auto mb-4 object-contain"
+            />
             <h1 className="font-poppins font-bold text-2xl text-primary">
               Painel Administrativo
             </h1>
@@ -92,19 +95,27 @@ export default function AdminLogin() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-text-light font-medium mb-2">
-                Senha
-              </label>
-              <input
-                id="password"
-                type="password"
-                value={credentials.password}
-                onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                placeholder="Digite sua senha"
-                required
-                autoComplete="current-password"
-              />
+              <label htmlFor="password" className="block text-text-light font-medium mb-2">Senha</label>
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={credentials.password}
+                  onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+                  className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="Digite sua senha"
+                  required
+                  autoComplete="current-password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary"
+                  aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
             </div>
 
             <button
