@@ -45,6 +45,10 @@ export default async function handler(req: any, res: any) {
     body: JSON.stringify(payload),
   })
   const data = await resp.json()
+  if (!resp.ok) {
+    console.error('ERRO MP DETALHADO:', JSON.stringify(data))
+    return res.status(resp.status).json({ error: data?.message || 'Erro na API do Mercado Pago', details: data })
+  }
   console.log('DEBUG MP NO SERVIDOR:', JSON.stringify(data))
   const init_point = data?.init_point || data?.body?.init_point || data?.response?.init_point || data?.sandbox_init_point || data?.point_of_interaction?.transaction_data?.ticket_url
   return res.status(200).json({ debug_mode: true, full_response: data, init_point })

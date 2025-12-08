@@ -211,7 +211,10 @@ export default function Cadastro() {
         })
         const data = await prefResp.json()
         console.log('RESPOSTA MP:', data)
-        if (data && data.init_point) {
+        if (!prefResp.ok) {
+          console.error('Erro MP:', data)
+          alert(`Erro MP: ${data?.error || (data?.details ? JSON.stringify(data.details) : 'Falha desconhecida')}`)
+        } else if (data && data.init_point) {
           window.location.href = data.init_point
         } else {
           console.error('Link de pagamento não encontrado:', data)
