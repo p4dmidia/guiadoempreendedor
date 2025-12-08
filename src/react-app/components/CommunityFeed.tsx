@@ -26,7 +26,7 @@ export default function CommunityFeed({ isAdmin, affiliateId }: { isAdmin: boole
       const resCh: any = await (orgSelect('community_channels', 'id,name,slug,read_only') as any)
       const chs = ((resCh?.data as any) || []) as Channel[]
       if (!chs.length) {
-        await orgInsert('community_channels', [
+        await (orgInsert as any)('community_channels', [
           { name: 'Avisos Oficiais', slug: 'avisos-oficiais', read_only: true },
           { name: 'Material de Apoio', slug: 'material-de-apoio', read_only: true },
           { name: 'Networking', slug: 'networking', read_only: false }
@@ -67,17 +67,21 @@ export default function CommunityFeed({ isAdmin, affiliateId }: { isAdmin: boole
       .eq('channel_id', Number(id))
       .order('is_pinned', { ascending: false })
       .order('created_at', { ascending: false })
-    const list = ((res?.data as any) || []) as PostRow[]
-    setPosts(list)
-    const ids = Array.from(new Set(list.map(p => p.affiliate_id).filter((v): v is number => typeof v === 'number')))
-    if (ids.length) {
-      const supabase = getSupabase()
-      const { data } = await (supabase.from('affiliates').select('id,full_name') as any).in('id', ids)
-      const map: Record<string, string> = {}
-      (data || []).forEach((r: any) => { map[String(r.id)] = r.full_name })
-      setAffiliateNames(map)
+    const list = ((res?.data as any) || []) as PostRow[];
+    setPosts(list);
+    const ids = list
+      .map(p => p.affiliate_id)
+      .filter((v: any) => typeof v === 'number') as number[];
+    if (ids.length > 0) {
+      const supabase = getSupabase();
+      const query: any = supabase.from('affiliates').select('id,full_name');
+      const result: any = await query['in']('id', ids);
+      const rows = (result?.data as any[]) || [];
+      const names: any = {};
+      for (const r of rows) { names[String(r.id)] = r.full_name; }
+      setAffiliateNames(names);
     } else {
-      setAffiliateNames({})
+      setAffiliateNames({});
     }
     await Promise.all(list.map(async (p) => {
       const rc: any = await (orgSelect('community_likes', 'id,affiliate_id') as any).eq('post_id', p.id)
@@ -96,7 +100,7 @@ export default function CommunityFeed({ isAdmin, affiliateId }: { isAdmin: boole
     setPublishing(true)
     const fileUrl = await uploadFileIfNeeded()
     const payload = { channel_id: Number(current), content: content.trim(), file_url: fileUrl, author_role: (isAdmin ? 'admin' : 'member') as 'admin'|'member', affiliate_id: isAdmin ? null : (affiliateId || null) }
-    const { error } = await orgInsert('community_posts', payload)
+    const { error } = await (orgInsert as any)('community_posts', payload)
     setPublishing(false)
     if (!error) {
       setToast({ type: 'success', message: 'Post publicado.' })
@@ -113,13 +117,13 @@ export default function CommunityFeed({ isAdmin, affiliateId }: { isAdmin: boole
     if (!affiliateId) { setToast({ type: 'warn', message: 'Somente afiliados podem curtir.' }); return }
     const liked = likedByMe[String(post.id)]
     if (liked) {
-      const { error } = await orgDelete('community_likes', { post_id: post.id, affiliate_id: affiliateId })
+      const { error } = await (orgDelete as any)('community_likes', { post_id: post.id, affiliate_id: affiliateId })
       if (!error) {
         setLikedByMe(prev => ({ ...prev, [String(post.id)]: false }))
         setLikesCount(prev => ({ ...prev, [String(post.id)]: Math.max(0, (prev[String(post.id)] || 0) - 1) }))
       }
     } else {
-      const { error } = await orgInsert('community_likes', { post_id: post.id, affiliate_id: affiliateId })
+      const { error } = await (orgInsert as any)('community_likes', { post_id: post.id, affiliate_id: affiliateId })
       if (!error) {
         setLikedByMe(prev => ({ ...prev, [String(post.id)]: true }))
         setLikesCount(prev => ({ ...prev, [String(post.id)]: (prev[String(post.id)] || 0) + 1 }))
@@ -136,7 +140,7 @@ export default function CommunityFeed({ isAdmin, affiliateId }: { isAdmin: boole
     const msg = text.trim()
     if (!msg) return
     const authorName = isAdmin ? 'Admin' : 'Membro'
-    const { error } = await orgInsert('community_comments', { post_id: post.id, author_name: authorName, content: msg })
+    const { error } = await (orgInsert as any)('community_comments', { post_id: post.id, author_name: authorName, content: msg })
     if (!error) {
       await loadComments(post)
     }
