@@ -1,23 +1,25 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { orgSelect, orgUpdate, orgDelete } from '@/react-app/lib/orgQueries'
-import { Users, Network, Ban, Pencil, Trash2, Download } from 'lucide-react'
+import { Users, Network, Ban, Pencil, Trash2, Download, Plus } from 'lucide-react'
 import AdminSidebar from '@/react-app/components/AdminSidebar'
 
-type Affiliate = { id: number; full_name: string; email: string; plan: string; status?: string; referral_code?: string | null; created_at: string }
+type Affiliate = { id: number; full_name: string; email: string; plan: string; status?: string; referral_code?: string | null; created_at: string; cpf?: string; pix_key?: string; address?: string }
 type Child = { id: number; full_name: string; plan: string; created_at: string }
 
 export default function AdminAffiliates() {
+  const navigate = useNavigate()
   const [rows, setRows] = useState<Affiliate[]>([])
   const [openId, setOpenId] = useState<number | null>(null)
   const [children, setChildren] = useState<Child[]>([])
   const [search, setSearch] = useState('')
   const [selected, setSelected] = useState<Record<number, boolean>>({})
   const [editing, setEditing] = useState<Affiliate | null>(null)
-  const [editForm, setEditForm] = useState({ full_name: '', email: '', plan: '' })
+  const [editForm, setEditForm] = useState({ full_name: '', email: '', plan: '', cpf: '', pix_key: '', address: '' })
 
   useEffect(() => {
     const load = async () => {
-      const res: any = await (orgSelect('affiliates', 'id, full_name, email, plan, status, referral_code, created_at') as any).order('created_at', { ascending: false })
+      const res: any = await (orgSelect('affiliates', 'id, full_name, email, plan, status, referral_code, created_at, cpf, pix_key, address') as any).order('created_at', { ascending: false })
       setRows(((res?.data as any) || []) as any)
     }
     load()
@@ -89,14 +91,14 @@ export default function AdminAffiliates() {
 
   const openEdit = (row: Affiliate) => {
     setEditing(row)
-    setEditForm({ full_name: row.full_name, email: row.email, plan: row.plan })
+    setEditForm({ full_name: row.full_name, email: row.email, plan: row.plan, cpf: row.cpf || '', pix_key: row.pix_key || '', address: row.address || '' })
   }
 
   const saveEdit = async () => {
     if (!editing) return
-    const { error } = await orgUpdate('affiliates', { id: editing.id }, { full_name: editForm.full_name, email: editForm.email, plan: editForm.plan })
+    const { error } = await orgUpdate('affiliates', { id: editing.id }, { full_name: editForm.full_name, email: editForm.email, plan: editForm.plan, cpf: editForm.cpf, pix_key: editForm.pix_key, address: editForm.address })
     if (!error) {
-      setRows(prev => prev.map(r => r.id === editing.id ? { ...r, full_name: editForm.full_name, email: editForm.email, plan: editForm.plan } : r))
+      setRows(prev => prev.map(r => r.id === editing.id ? { ...r, full_name: editForm.full_name, email: editForm.email, plan: editForm.plan, cpf: editForm.cpf, pix_key: editForm.pix_key, address: editForm.address } : r))
       setEditing(null)
     }
   }
@@ -109,7 +111,10 @@ export default function AdminAffiliates() {
         <h1 className="font-poppins font-bold text-2xl text-primary mb-6">Gerenciar Afiliados</h1>
         <div className="flex items-center justify-between mb-4">
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Pesquisar por nome, plano, email" className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-md" />
-          <button onClick={exportData} className="px-4 py-2 bg-cta text-white rounded-md hover:bg-opacity-90 flex items-center gap-2"><Download className="w-4 h-4" />Exportar</button>
+          <div className="flex items-center gap-2">
+            <button onClick={() => navigate('/cadastro')} className="px-4 py-2 bg-primary text-white rounded-md hover:bg-opacity-90 flex items-center gap-2"><Plus className="w-4 h-4" />Cadastrar Novo</button>
+            <button onClick={exportData} className="px-4 py-2 bg-cta text-white rounded-md hover:bg-opacity-90 flex items-center gap-2"><Download className="w-4 h-4" />Exportar</button>
+          </div>
         </div>
         <div className="bg-white rounded-lg shadow-sm">
           <table className="w-full">
@@ -132,13 +137,13 @@ export default function AdminAffiliates() {
                   <td className="px-4 py-3 text-sm">{r.plan}</td>
                   <td className="px-4 py-3 text-sm text-text-light">{formatDate(r.created_at)}</td>
                   <td className="px-4 py-3 text-sm">
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       {r.plan === 'embaixador' && (
-                        <button onClick={() => openNetwork(r)} className="px-3 py-2 bg-cta text-white rounded-md hover:bg-opacity-90 flex items-center gap-1"><Network className="w-4 h-4" />Ver Rede</button>
+                        <button onClick={() => openNetwork(r)} className="inline-flex items-center justify-center gap-1 h-9 px-3 min-w-[120px] bg-cta text-white rounded-md hover:bg-opacity-90"><Network className="w-4 h-4" />Ver Rede</button>
                       )}
-                      <button onClick={() => openEdit(r)} className="px-3 py-2 bg-accent text-white rounded-md hover:bg-opacity-90 flex items-center gap-1"><Pencil className="w-4 h-4" />Editar</button>
-                      <button onClick={() => blockRow(r)} className="px-3 py-2 bg-primary text-white rounded-md hover:bg-opacity-90 flex items-center gap-1"><Ban className="w-4 h-4" />Bloquear</button>
-                      <button onClick={() => deleteRow(r)} className="px-3 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center gap-1"><Trash2 className="w-4 h-4" />Excluir</button>
+                      <button onClick={() => openEdit(r)} className="inline-flex items-center justify-center gap-1 h-9 px-3 min-w-[120px] bg-accent text-white rounded-md hover:bg-opacity-90"><Pencil className="w-4 h-4" />Editar</button>
+                      <button onClick={() => blockRow(r)} className="inline-flex items-center justify-center gap-1 h-9 px-3 min-w-[120px] bg-primary text-white rounded-md hover:bg-opacity-90"><Ban className="w-4 h-4" />Bloquear</button>
+                      <button onClick={() => deleteRow(r)} className="inline-flex items-center justify-center gap-1 h-9 px-3 min-w-[120px] bg-red-600 text-white rounded-md hover:bg-red-700"><Trash2 className="w-4 h-4" />Excluir</button>
                     </div>
                   </td>
                 </tr>
@@ -187,6 +192,18 @@ export default function AdminAffiliates() {
                 <div>
                   <label className="block text-text-light text-sm mb-1">E-mail</label>
                   <input value={editForm.email} onChange={e => setEditForm({ ...editForm, email: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                </div>
+                <div>
+                  <label className="block text-text-light text-sm mb-1">CPF</label>
+                  <input value={editForm.cpf} onChange={e => setEditForm({ ...editForm, cpf: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                </div>
+                <div>
+                  <label className="block text-text-light text-sm mb-1">Chave Pix</label>
+                  <input value={editForm.pix_key} onChange={e => setEditForm({ ...editForm, pix_key: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                </div>
+                <div>
+                  <label className="block text-text-light text-sm mb-1">Endereço</label>
+                  <input value={editForm.address} onChange={e => setEditForm({ ...editForm, address: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-md" />
                 </div>
                 <div>
                   <label className="block text-text-light text-sm mb-1">Plano</label>

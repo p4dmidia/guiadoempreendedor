@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Users, TrendingUp, DollarSign, Clock, Settings, LogOut, PieChart as PieIcon, LineChart as LineIcon, List } from 'lucide-react'
+import { Users, TrendingUp, DollarSign, Clock, Settings, LogOut, PieChart as PieIcon, LineChart as LineIcon, List, Percent } from 'lucide-react'
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts'
 import { orgSelect } from '@/react-app/lib/orgQueries'
 import { getSupabase } from '@/react-app/lib/supabaseClient'
@@ -110,6 +110,7 @@ export default function AdminDashboardBasic() {
           <nav className="space-y-2">
             <button onClick={() => navigate('/admin/dashboard')} className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md bg-white/10 hover:bg-white/20"><LineIcon className="w-4 h-4" />Visão Geral</button>
             <button onClick={() => navigate('/admin/blog')} className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white/10"><List className="w-4 h-4" />Gerenciar Blog</button>
+            <button onClick={() => navigate('/admin/cupons')} className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white/10"><Percent className="w-4 h-4" />Cupons</button>
             <button onClick={() => navigate('/admin/afiliados')} className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white/10"><Users className="w-4 h-4" />Gerenciar Afiliados</button>
             <button onClick={() => navigate('/admin/saques')} className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white/10"><DollarSign className="w-4 h-4" />Financeiro / Saques</button>
             <button onClick={() => navigate('/admin/configuracoes')} className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white/10"><Settings className="w-4 h-4" />Configurações</button>

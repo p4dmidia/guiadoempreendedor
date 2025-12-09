@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import AdminSidebar from '@/react-app/components/AdminSidebar'
 import { orgInsert } from '@/react-app/lib/orgQueries'
 import { getSupabase } from '@/react-app/lib/supabaseClient'
+import { ORG_ID } from '@/react-app/lib/org'
 
 function slugify(s: string) {
   return s
@@ -21,6 +22,8 @@ export default function AdminBlogNew() {
   const [form, setForm] = useState({
     title: '',
     slug: '',
+    category: '',
+    subcategory: '',
     cover_url: '',
     intro: '',
     body: '',
@@ -56,8 +59,28 @@ export default function AdminBlogNew() {
     }
     setSaving(true)
     const cover = await uploadCoverIfNeeded()
-    const payload = { ...form, cover_url: cover }
-    const { error } = await orgInsert('blog_posts', payload)
+    const { data: auth } = await getSupabase().auth.getUser()
+    const author_id = auth?.user?.id || null
+    const slug = (form.slug || '').trim() || slugify(form.title)
+    const dataToSave = { 
+      organization_id: ORG_ID, 
+      author_id, 
+      title: form.title, 
+      slug, 
+      category: form.category || null, 
+      subcategory: form.subcategory || null, 
+      cover_url: cover || null, 
+      intro: form.intro || null, 
+      body: form.body, 
+      conclusion: form.conclusion || null, 
+      keywords: form.keywords || null, 
+      meta_description: form.meta_description || null, 
+      cta_text: form.cta_text || null, 
+      cta_link: form.cta_link || null, 
+      status: form.status || 'draft' 
+    }
+    console.log('Payload Post:', dataToSave)
+    const { error } = await orgInsert('blog_posts', dataToSave)
     setSaving(false)
     if (!error) {
       setToast({ type: 'success', message: 'Post salvo com sucesso.' })
@@ -86,6 +109,16 @@ export default function AdminBlogNew() {
               <div>
                 <label className="block text-sm text-text-light mb-1">Slug</label>
                 <input value={form.slug} onChange={e => setForm({ ...form, slug: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-md" />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm text-text-light mb-1">Categoria</label>
+                  <input value={form.category} onChange={e => setForm({ ...form, category: e.target.value })} placeholder="Marketing Digital" className="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                </div>
+                <div>
+                  <label className="block text-sm text-text-light mb-1">Subcategoria</label>
+                  <input value={form.subcategory} onChange={e => setForm({ ...form, subcategory: e.target.value })} placeholder="Tráfego Pago" className="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                </div>
               </div>
               <div>
                 <label className="block text-sm text-text-light mb-1">Imagem de Capa (URL)</label>

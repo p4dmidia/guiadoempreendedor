@@ -24,10 +24,10 @@ export default function Navbar() {
         
         <div className="hidden md:flex items-center gap-8">
           <button 
-            onClick={() => navigate('/')}
+            onClick={() => scrollToSection('sobre')}
             className="text-white hover:text-accent transition-colors"
           >
-            Início
+            Sobre
           </button>
           <button 
             onClick={() => scrollToSection('beneficios')}
@@ -36,22 +36,28 @@ export default function Navbar() {
             Benefícios
           </button>
           <button 
-            onClick={() => scrollToSection('planos')}
+            onClick={() => scrollToSection('niveis')}
             className="text-white hover:text-accent transition-colors"
           >
-            Planos
+            Níveis
           </button>
           <button 
-            onClick={() => navigate('/blog')}
+            onClick={() => scrollToSection('contato')}
             className="text-white hover:text-accent transition-colors"
           >
-            Blog
+            Contato
+          </button>
+          <button 
+            onClick={() => navigate('/cadastro')}
+            className="bg-cta text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-all font-medium"
+          >
+            Começar agora
           </button>
           <button 
             onClick={() => navigate('/login')}
             className="border-2 border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-primary transition-all font-medium"
           >
-            Área do Membro
+            Entrar
           </button>
         </div>
 
@@ -70,10 +76,10 @@ export default function Navbar() {
         <div className="md:hidden mt-4 pt-4 border-t border-white/20">
           <div className="flex flex-col gap-4">
             <button 
-              onClick={() => { setMobileMenuOpen(false); navigate('/'); }}
+              onClick={() => { setMobileMenuOpen(false); scrollToSection('sobre'); }}
               className="text-white text-left hover:text-accent transition-colors"
             >
-              Início
+              Sobre
             </button>
             <button 
               onClick={() => { setMobileMenuOpen(false); scrollToSection('beneficios'); }}
@@ -82,22 +88,28 @@ export default function Navbar() {
               Benefícios
             </button>
             <button 
-              onClick={() => { setMobileMenuOpen(false); scrollToSection('planos'); }}
+              onClick={() => { setMobileMenuOpen(false); scrollToSection('niveis'); }}
               className="text-white text-left hover:text-accent transition-colors"
             >
-              Planos
+              Níveis
             </button>
             <button 
-              onClick={() => { setMobileMenuOpen(false); navigate('/blog'); }}
+              onClick={() => { setMobileMenuOpen(false); scrollToSection('contato'); }}
               className="text-white text-left hover:text-accent transition-colors"
             >
-              Blog
+              Contato
+            </button>
+            <button 
+              onClick={() => { setMobileMenuOpen(false); navigate('/cadastro'); }}
+              className="bg-cta text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-all font-medium w-full text-left"
+            >
+              Começar agora
             </button>
             <button 
               onClick={() => { setMobileMenuOpen(false); navigate('/login'); }}
               className="border-2 border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-primary transition-all font-medium w-full text-left"
             >
-              Área do Membro
+              Entrar
             </button>
           </div>
         </div>

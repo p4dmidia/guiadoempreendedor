@@ -49,6 +49,10 @@ export default function Cadastro() {
   const [refCode, setRefCode] = useState<string>(referralCode || '')
   const [referrerName, setReferrerName] = useState<string>('')
   const [buttonLabel, setButtonLabel] = useState('Ir para Pagamento Seguro')
+  const [couponCode, setCouponCode] = useState('')
+  const [appliedPrice, setAppliedPrice] = useState<string | null>(null)
+  const [discountedPrice, setDiscountedPrice] = useState<number | null>(null)
+  const [appliedCoupon, setAppliedCoupon] = useState<any | null>(null)
 
   const [formData, setFormData] = useState({
     nome: '',
@@ -65,6 +69,7 @@ export default function Cadastro() {
     const init = async () => {
       try {
         const supabase = getSupabase()
+        await supabase.auth.signOut()
         const { data } = await supabase.auth.getUser()
         setUser(data.user ?? null)
       } catch (_e) {
@@ -85,39 +90,34 @@ export default function Cadastro() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // signUp com email/senha quando não autenticado
-    let uid = user?.id || null
+    let supabase
+    try {
+      supabase = getSupabase()
+    } catch (_e) {
+      setIsSubmitting(false)
+      alert('Configuração do Supabase ausente. Defina VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY.')
+      return
+    }
+    await supabase.auth.signOut()
+    const { data: newAuthData, error: signUpError } = await supabase.auth.signUp({
+      email: formData.email,
+      password: formData.password
+    })
+    if (signUpError) {
+      setIsSubmitting(false)
+      alert('Erro ao criar conta. Verifique seu email/senha.')
+      return
+    }
+    let uid = newAuthData.user?.id || newAuthData.session?.user?.id || null
     if (!uid) {
-      let supabase
-      try {
-        supabase = getSupabase()
-      } catch (_e) {
-        setIsSubmitting(false)
-        alert('Configuração do Supabase ausente. Defina VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY.')
-        return
-      }
-      const { data, error } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password
-      })
-      if (error) {
-        setIsSubmitting(false)
-        alert('Erro ao criar conta. Verifique seu email/senha.')
-        return
-      }
-      uid = data.user?.id || data.session?.user?.id || null
-      if (!uid) {
-        const { data: u2 } = await getSupabase().auth.getUser()
-        uid = u2.user?.id || null
-      }
-      if (!uid) {
-        setIsSubmitting(false)
-        alert('Não foi possível obter o usuário após cadastro.')
-        return
-      }
-
       await supabase.auth.signInWithPassword({ email: formData.email, password: formData.password })
-      await supabase.auth.getSession()
+      const { data: u2 } = await supabase.auth.getUser()
+      uid = u2.user?.id || null
+    }
+    if (!uid) {
+      setIsSubmitting(false)
+      alert('Não foi possível obter o usuário após cadastro.')
+      return
     }
 
     setIsSubmitting(true);
@@ -129,7 +129,7 @@ export default function Cadastro() {
       for (let i = 0; i < 3 && !updated; i++) {
         const { error: profileError } = await supabaseClient
           .from('profiles')
-          .update({ organization_id: ORG_ID, full_name: formData.nome })
+          .update({ organization_id: ORG_ID, full_name: formData.nome, role: 'member' })
           .eq('id', uid)
         if (profileError) {
           alert('Erro ao atualizar seu perfil. Tente novamente.')
@@ -196,17 +196,55 @@ export default function Cadastro() {
           return isNaN(n) ? 0 : n
         })()
 
+        const finalUnitPrice = discountedPrice != null ? discountedPrice : (() => {
+          let s = String(selectedPlan.price)
+          s = s.replace(/[R$\s]/gi, '')
+          if (s.includes('.') && s.includes(',')) {
+            s = s.replace(/\./g, '').replace(',', '.')
+          } else {
+            s = s.replace(',', '.')
+          }
+          const n = parseFloat(s)
+          return isNaN(n) ? 0 : n
+        })()
+
+        if (finalUnitPrice <= 0) {
+          const supabaseClient2 = getSupabase()
+          await supabaseClient2
+            .from('affiliates')
+            .update({ payment_status: 'active', status: 'active' })
+            .eq('organization_id', ORG_ID)
+            .eq('user_id', uid)
+          await supabaseClient2
+            .from('orders')
+            .insert([{ organization_id: ORG_ID, user_id: uid, amount: 0, status: 'paid', coupon_id: appliedCoupon?.id || null }])
+          if (appliedCoupon?.id) {
+            await supabaseClient2
+              .from('coupons')
+              .update({ used_count: Number(appliedCoupon.used_count || 0) + 1 })
+              .eq('organization_id', ORG_ID)
+              .eq('id', appliedCoupon.id)
+          }
+          if (planKey === 'assinante') {
+            navigate('/')
+          } else {
+            navigate('/login')
+          }
+          return
+        }
+
         const prefResp = await fetch('/api/create-mp-preference', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             title,
-            unit_price,
+            unit_price: finalUnitPrice,
             quantity: 1,
             email: formData.email,
             user_id: uid,
             plan_type: planKey,
             organization_id: ORG_ID,
+            couponCode: couponCode.trim().toUpperCase()
           }),
         })
         const data = await prefResp.json()
@@ -214,6 +252,12 @@ export default function Cadastro() {
         if (!prefResp.ok) {
           console.error('Erro MP:', data)
           alert(`Erro MP: ${data?.error || (data?.details ? JSON.stringify(data.details) : 'Falha desconhecida')}`)
+        } else if (data?.status === 'free_approved' && data?.redirect_url) {
+          if (planKey === 'assinante') {
+            window.location.href = '/'
+          } else {
+            window.location.href = '/login'
+          }
         } else if (data && data.init_point) {
           window.location.href = data.init_point
         } else {
@@ -228,6 +272,35 @@ export default function Cadastro() {
       setButtonLabel('Ir para Pagamento Seguro')
     }
   };
+
+  const applyCoupon = async () => {
+    const code = couponCode.trim().toUpperCase()
+    if (!code) { setAppliedPrice(null); setDiscountedPrice(null); setAppliedCoupon(null); return }
+    const supabase = getSupabase()
+    const { data: c } = await supabase
+      .from('coupons')
+      .select('id,code,type,value,valid_until,max_uses,used_count,status')
+      .eq('organization_id', ORG_ID)
+      .eq('code', code)
+      .maybeSingle()
+    if (!c) { alert('Cupom não encontrado'); return }
+    const nowIso = new Date().toISOString()
+    const validDate = !c.valid_until || (new Date(c.valid_until).toISOString() >= nowIso)
+    const validUses = !c.max_uses || (Number(c.used_count || 0) < Number(c.max_uses))
+    const isActive = c.status !== 'inactive'
+    if (!(isActive && validDate && validUses)) { alert('Cupom inválido ou expirado'); return }
+    let s = String(selectedPlan.price)
+    s = s.replace(/[R$\s]/gi, '')
+    if (s.includes('.') && s.includes(',')) { s = s.replace(/\./g, '').replace(',', '.') } else { s = s.replace(',', '.') }
+    let base = parseFloat(s); if (isNaN(base)) base = 0
+    let newPrice = base
+    if (c.type === 'percentage') { newPrice = Math.max(0, base * (1 - Number(c.value) / 100)) } else { newPrice = Math.max(0, base - Number(c.value)) }
+    const formatted = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(newPrice)
+    setAppliedPrice(formatted)
+    setDiscountedPrice(newPrice)
+    setAppliedCoupon(c)
+    alert('Cupom aplicado!')
+  }
 
   const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -267,10 +340,16 @@ export default function Cadastro() {
               <div className="flex justify-between items-baseline mb-2">
                 <span className="text-text-light font-medium">Valor Total:</span>
                 <span className="font-poppins font-bold text-3xl text-primary">
-                  {selectedPlan.price}
+                  {appliedPrice ? appliedPrice : selectedPlan.price}
                 </span>
               </div>
               <div className="text-sm text-gray-600">Cobrança anual</div>
+              <div className="mt-3">
+                <div className="flex gap-2">
+                  <input value={couponCode} onChange={e => setCouponCode(e.target.value)} placeholder="Possui Cupom?" className="px-4 py-2 border border-gray-300 rounded-md uppercase" />
+                  <button type="button" onClick={applyCoupon} className="px-4 py-2 bg-cta text-white rounded-md hover:bg-opacity-90">Aplicar</button>
+                </div>
+              </div>
             </div>
 
             <div className="border-t pt-6">

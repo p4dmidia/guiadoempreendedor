@@ -23,6 +23,8 @@ export default function AdminBlogEdit() {
   const [form, setForm] = useState({
     title: '',
     slug: '',
+    category: '',
+    subcategory: '',
     cover_url: '',
     intro: '',
     body: '',
@@ -44,6 +46,8 @@ export default function AdminBlogEdit() {
       setForm({
         title: data.title || '',
         slug: data.slug || '',
+        category: data.category || '',
+        subcategory: data.subcategory || '',
         cover_url: data.cover_url || '',
         intro: data.intro || '',
         body: data.body || '',
@@ -110,6 +114,16 @@ export default function AdminBlogEdit() {
               <div>
                 <label className="block text-sm text-text-light mb-1">Slug</label>
                 <input value={form.slug} onChange={e => setForm({ ...form, slug: e.target.value })} className="w-full px-4 py-2 border border-gray-300 rounded-md" />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm text-text-light mb-1">Categoria</label>
+                  <input value={form.category} onChange={e => setForm({ ...form, category: e.target.value })} placeholder="Marketing Digital" className="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                </div>
+                <div>
+                  <label className="block text-sm text-text-light mb-1">Subcategoria</label>
+                  <input value={form.subcategory} onChange={e => setForm({ ...form, subcategory: e.target.value })} placeholder="Tráfego Pago" className="w-full px-4 py-2 border border-gray-300 rounded-md" />
+                </div>
               </div>
               <div>
                 <label className="block text-sm text-text-light mb-1">Imagem de Capa (URL)</label>

@@ -14,6 +14,7 @@ import AdminBlogListPage from "@/react-app/pages/admin/blog/AdminBlogList";
 import AdminBlogNewPage from "@/react-app/pages/admin/blog/AdminBlogNew";
 import AdminBlogEditPage from "@/react-app/pages/admin/blog/AdminBlogEdit";
 import AdminCommunityPage from "@/react-app/pages/AdminCommunity";
+import AdminCouponsPage from "@/react-app/pages/AdminCoupons";
 import AreaMembrosPage from "@/react-app/pages/AreaMembros";
 import PaymentSuccessPage from "@/react-app/pages/PaymentSuccess";
 import AdminRoute from "@/react-app/auth/AdminRoute";
@@ -52,6 +53,11 @@ export default function App() {
         <Route path="/admin/comunidade" element={
           <AdminRoute>
             <AdminCommunityPage />
+          </AdminRoute>
+        } />
+        <Route path="/admin/cupons" element={
+          <AdminRoute>
+            <AdminCouponsPage />
           </AdminRoute>
         } />
         <Route path="/admin/blog" element={

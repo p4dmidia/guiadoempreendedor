@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { Eye, Users, TrendingUp, Check } from 'lucide-react';
+import { Eye, Users, TrendingUp, Check, User, Crown, ArrowRight, ArrowDown, Layers, ChevronsUp, X, ShieldCheck, Lock, Headphones, Target, Zap, CreditCard, Scale, LayoutDashboard, RefreshCw } from 'lucide-react';
 import Navbar from '@/react-app/components/Navbar';
 import Footer from '@/react-app/components/Footer';
+import FAQSection from '@/react-app/components/FAQSection';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -12,135 +13,288 @@ export default function Home() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+  const scrollToSobre = () => {
+    const element = document.getElementById('sobre');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  const scrollToBeneficios = () => {
+    const element = document.getElementById('beneficios');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="min-h-screen">
       <Navbar />
       
       {/* Hero Section */}
-      <section id="inicio" className="bg-gradient-to-b from-primary to-secondary py-24 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="font-poppins font-bold text-4xl md:text-5xl text-white mb-6 leading-tight">
-            Programa Conexão Empresarial
+      <section id="inicio" className="relative py-24 px-6 bg-center bg-cover" style={{ backgroundImage: "url('/hero-conexao.jpg')" }}>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/85"></div>
+        <div className="relative max-w-4xl mx-auto text-center">
+          <div className="flex justify-center mb-4">
+            <span className="inline-flex items-center gap-2 bg-cta text-white px-4 py-2 rounded-md font-semibold text-base md:text-lg">
+              <Check className="w-5 h-5 text-white" />
+              Programa Oficial do Guia Portal Empreendedor
+            </span>
+          </div>
+          <h1 className="font-poppins font-bold text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight">
+            PROGRAMA
+            <br />
+            <span className="text-cta">CONEXÃO EMPRESARIAL</span>
           </h1>
-          <p className="text-gray-300 text-lg md:text-xl mb-8 font-medium">
-            O modelo oficial de entrada, desenvolvimento e crescimento dentro do Guia Portal Empreendedor. Visibilidade estratégica, networking qualificado e oportunidades reais de negócios para empreendedores de todo o Brasil.
+          <p className="text-lg md:text-xl mb-2 font-semibold text-accent">
+            Ecossistema Empresarial • Networking Qualificado • Crescimento Digital
           </p>
-          <button 
-            onClick={scrollToPlanos}
-            className="bg-cta text-white px-8 py-4 rounded-md font-bold text-lg hover:bg-opacity-90 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
-          >
-            Escolher meu Nível
-          </button>
+          <p className="text-white text-lg md:text-xl mb-8 font-medium">
+            O <span className="font-semibold">Programa Conexão Empresarial</span> é reconhecido como o <span className="font-semibold">principal ecossistema empresarial e de networking qualificado do Brasil</span>, conectando empreendedores brasileiros com oportunidades reais de crescimento.
+          </p>
+          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div className="rounded-lg border border-primary bg-primary/90 text-white p-4 flex items-center gap-3">
+              <span className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/30">
+                <User className="w-6 h-6 text-white" />
+              </span>
+              <span className="font-poppins font-semibold">Assinante</span>
+            </div>
+            <div className="rounded-lg border border-primary bg-primary/90 text-white p-4 flex items-center gap-3">
+              <span className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/30">
+                <Users className="w-6 h-6 text-white" />
+              </span>
+              <span className="font-poppins font-semibold">Associado</span>
+            </div>
+            <div className="rounded-lg border border-primary bg-primary/90 text-white p-4 flex items-center gap-3">
+              <span className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/30">
+                <Crown className="w-6 h-6 text-white" />
+              </span>
+              <span className="font-poppins font-semibold">Embaixador</span>
+            </div>
+          </div>
+          <div className="flex flex-wrap justify-center gap-4">
+            <button 
+              onClick={scrollToPlanos}
+              className="bg-cta text-white px-8 py-4 rounded-md font-bold text-lg hover:bg-opacity-90 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 inline-flex items-center gap-2"
+            >
+              Escolher Meu Plano
+              <ArrowRight className="w-5 h-5" />
+            </button>
+            <button 
+              onClick={scrollToSobre}
+              className="border-2 px-8 py-4 rounded-md font-bold text-lg transition-all inline-flex items-center gap-2"
+              style={{ backgroundColor: 'rgba(222, 220, 225, 0.5)', color: '#FFFFFF', borderColor: '#FFFFFF' }}
+            >
+              Conhecer o Programa
+              <ArrowDown className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </section>
 
+      
+
       {/* Welcome Section */}
-      <section className="py-16 px-6 bg-white">
+      <section id="sobre" className="py-16 px-6 bg-white">
         <div className="max-w-4xl mx-auto text-center">
+          <div className="flex justify-center mb-4">
+            <span className="inline-flex items-center bg-cta text-white px-4 py-2 rounded-md font-semibold">Ecossistema Empresarial Líder no digital</span>
+          </div>
           <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary mb-6">
-            Seja bem-vindo ao Programa Conexão Empresarial
+            O Principal Ecossistema de
+            <br />
+            Networking Qualificado do Brasil
           </h2>
           <p className="text-text-light text-lg mb-6 leading-relaxed">
-            O modelo oficial de entrada, desenvolvimento e aceleração de negócios dentro do ecossistema do Guia Portal Empreendedor.
+            O <span style={{ color: '#104473' }} className="font-semibold">Programa Conexão Empresarial</span> é reconhecido como o <span style={{ color: '#104473' }} className="font-semibold">principal ecossistema empresarial e de networking qualificado do Brasil</span>, conectando empreendedores brasileiros com oportunidades reais de crescimento.
           </p>
           <p className="text-text-light text-lg mb-6 leading-relaxed">
-            Mais do que uma plataforma de cadastro, este programa é um hub estratégico que reúne visibilidade qualificada, networking de alto nível e oportunidades reais de negócios para empreendedores visionários de todo o Brasil.
+            Esta iniciativa pioneira reúne <span style={{ color: '#104473' }} className="font-semibold">visibilidade estratégica, networking B2B qualificado</span> e <span style={{ color: '#104473' }} className="font-semibold">oportunidades tangíveis de negócios</span> para empreendedores de todo o Brasil que buscam se destacar no mercado digital nacional e internacional.
+            <br /><br />
+            Mais do que uma plataforma de negócios, oferecemos um <span style={{ color: '#104473' }} className="font-semibold">ecossistema empresarial completo</span> onde empresas crescem, conectam-se e prosperam através do networking qualificado e parcerias estratégicas.
           </p>
-          <p className="text-text-light text-lg leading-relaxed">
-            Estruturado meticulosamente em três níveis de acesso — Assinante, Associado e Embaixador — o programa foi desenhado para oferecer uma jornada de benefícios progressivos. Aqui, fortalecemos sua presença digital, ampliamos sua rede de contatos e desbloqueamos novas fontes de receita através de um sistema inteligente de ganhos por indicação.
-          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-8 rounded-lg bg-body hover:shadow-lg transition-all">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-cta rounded-full mb-6">
+                <Layers className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="font-poppins font-semibold text-xl text-primary mb-4">Estrutura em 3 Níveis</h3>
+              <p className="text-text-light">Organizado em Assinante, Associado e Embaixador, permitindo que cada empreendedor escolha o nível adequado ao seu momento de negócio.</p>
+            </div>
+            <div className="text-center p-8 rounded-lg bg-body hover:shadow-lg transition-all">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-cta rounded-full mb-6">
+                <ChevronsUp className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="font-poppins font-semibold text-xl text-primary mb-4">Benefícios Progressivos</h3>
+              <p className="text-text-light">Cada nível desbloqueia novas vantagens que fortalecem sua presença digital, ampliam suas conexões e aumentam seu potencial de retorno.</p>
+            </div>
+            <div className="text-center p-8 rounded-lg bg-body hover:shadow-lg transition-all">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-cta rounded-full mb-6">
+                <TrendingUp className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="font-poppins font-semibold text-xl text-primary mb-4">Crescimento Empresarial</h3>
+              <p className="text-text-light">Possibilita ganhos por indicação e expansão de rede, transformando relacionamento em uma fonte sustentável de receita e autoridade.</p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Purpose Section */}
       <section className="py-16 px-6 bg-body">
         <div className="max-w-5xl mx-auto">
+          <div className="flex justify-center mb-4">
+            <span className="inline-flex items-center bg-cta text-white px-4 py-2 rounded-md font-semibold">Nosso Propósito</span>
+          </div>
           <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary text-center mb-12">
-            Propósito do Programa
+            Missão, Visão e Valores
           </h2>
           <p className="text-center text-text-light mb-12 text-lg">
-            Nosso norte estratégico é claro e focado no sucesso do membro:
+            Os princípios que nos guiam rumo ao sucesso coletivo
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg p-8 shadow-md">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-cta rounded-full mb-4">
+                <Target className="w-6 h-6 text-white" />
+              </div>
               <h3 className="font-poppins font-bold text-xl text-accent mb-4">
-                Missão
+                Nossa Missão
               </h3>
               <p className="text-text-light leading-relaxed">
-                Proporcionar crescimento empresarial tangível através de um posicionamento estratégico impecável, conexões relevantes entre decisores e geração de oportunidades reais de faturamento.
+                Proporcionar crescimento empresarial por meio de posicionamento estratégico, conexões relevantes e oportunidades reais de negócio.
               </p>
             </div>
 
             <div className="bg-white rounded-lg p-8 shadow-md">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-cta rounded-full mb-4">
+                <Eye className="w-6 h-6 text-white" />
+              </div>
               <h3 className="font-poppins font-bold text-xl text-accent mb-4">
-                Visão
+                Nossa Visão
               </h3>
               <p className="text-text-light leading-relaxed">
-                Consolidar-se como o principal e mais confiável ecossistema digital brasileiro focado em conexões empresariais e colaboração empreendedora genuína.
+                Tornar-se o principal ecossistema digital brasileiro de conexões empresariais e colaboração empreendedora do país.
               </p>
             </div>
 
             <div className="bg-white rounded-lg p-8 shadow-md">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-cta rounded-full mb-4">
+                <ShieldCheck className="w-6 h-6 text-white" />
+              </div>
               <h3 className="font-poppins font-bold text-xl text-accent mb-4">
-                Valores Inegociáveis
+                Nossos Valores
               </h3>
-              <ul className="text-text-light leading-relaxed space-y-2">
-                <li>• Ética em primeiro lugar</li>
-                <li>• Transparência absoluta</li>
-                <li>• Crescimento coletivo</li>
-                <li>• Empreendedorismo real</li>
-                <li>• Oportunidades legítimas</li>
-              </ul>
+              <p className="text-text-light leading-relaxed">
+                Ética, Transparência, Crescimento Coletivo, Empreendedorismo Real e Oportunidades Legítimas em todas as interações.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Nossa Essência Section (moved below Propósito) */}
+      <section className="py-20 px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex justify-center mb-4">
+            <span className="inline-flex items-center bg-cta text-white px-4 py-2 rounded-md font-semibold">Nossa Essência</span>
+          </div>
+          <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary text-center mb-2">Fundamentos que nos Movem</h2>
+          <p className="text-center text-text-light mb-12 text-lg">Os princípios que guiam o Programa Conexão Empresarial</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-body rounded-lg p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">01</div>
+                <h3 className="font-poppins font-semibold text-lg text-primary">Networking Verdadeiro</h3>
+              </div>
+              <p className="text-text-light">Conexões reais e duradouras entre empresários que buscam crescimento mútuo, não apenas troca de cartões.</p>
+            </div>
+
+            <div className="bg-body rounded-lg p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">02</div>
+                <h3 className="font-poppins font-semibold text-lg text-primary">Visibilidade Estratégica</h3>
+              </div>
+              <p className="text-text-light">Posicionamento onde o seu mercado realmente procura, com ferramentas e suporte para destacar seu negócio.</p>
+            </div>
+
+            <div className="bg-body rounded-lg p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">03</div>
+                <h3 className="font-poppins font-semibold text-lg text-primary">Crescimento Conjunto</h3>
+              </div>
+              <p className="text-text-light">Acreditamos que o sucesso é compartilhado. Quanto mais a comunidade cresce, mais todos prosperam.</p>
+            </div>
+
+            <div className="bg-body rounded-lg p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">04</div>
+                <h3 className="font-poppins font-semibold text-lg text-primary">Transparência Total</h3>
+              </div>
+              <p className="text-text-light">Regras claras, benefícios explícitos e sem surpresas. Você sabe exatamente o que esperar em cada nível.</p>
+            </div>
+
+            <div className="bg-body rounded-lg p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">05</div>
+                <h3 className="font-poppins font-semibold text-lg text-primary">Oportunidades Reais</h3>
+              </div>
+              <p className="text-text-light">Geramos negócios concretos através de indicações qualificadas, eventos estratégicos e parcerias sólidas.</p>
+            </div>
+
+            <div className="bg-body rounded-lg p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">06</div>
+                <h3 className="font-poppins font-semibold text-lg text-primary">Suporte Contínuo</h3>
+              </div>
+              <p className="text-text-light">Mentoria, materiais, treinamentos e uma equipe dedicada para garantir que você aproveite ao máximo o programa.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Pilares Section */}
-      <section id="beneficios" className="py-20 px-6 bg-white">
+      <section id="beneficios" className="py-20 px-6 bg-primary">
         <div className="max-w-6xl mx-auto">
-          <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary text-center mb-4">
+          <h2 className="font-poppins font-bold text-3xl md:text-4xl text-white text-center mb-4">
             Pilares Estruturais
           </h2>
-          <p className="text-center text-text-light mb-16 text-lg">
+          <p className="text-center text-white mb-16 text-lg">
             Crescimento empresarial por meio de posicionamento estratégico, conexões relevantes e oportunidades reais
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-8 rounded-lg bg-body hover:shadow-lg transition-all">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-accent bg-opacity-10 rounded-full mb-6">
-                <Eye className="w-8 h-8 text-accent" />
+            <div className="text-center p-8 rounded-lg bg-white/10 hover:shadow-lg transition-all">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-cta rounded-full mb-6">
+                <Eye className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-poppins font-semibold text-xl text-primary mb-4">
+              <h3 className="font-poppins font-semibold text-xl text-white mb-4">
                 Visibilidade Qualificada
               </h3>
-              <p className="text-text-light">
+              <p className="text-white">
                 Sua empresa está posicionada onde empresários procuram fornecedores, serviços e parcerias.
               </p>
             </div>
 
-            <div className="text-center p-8 rounded-lg bg-body hover:shadow-lg transition-all">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-accent bg-opacity-10 rounded-full mb-6">
-                <Users className="w-8 h-8 text-accent" />
+            <div className="text-center p-8 rounded-lg bg-white/10 hover:shadow-lg transition-all">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-cta rounded-full mb-6">
+                <Users className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-poppins font-semibold text-xl text-primary mb-4">
+              <h3 className="font-poppins font-semibold text-xl text-white mb-4">
                 Networking Estratégico
               </h3>
-              <p className="text-text-light">
+              <p className="text-white">
                 Acesso à comunidade empresarial, Painel de Negócios e eventos presenciais ou digitais.
               </p>
             </div>
 
-            <div className="text-center p-8 rounded-lg bg-body hover:shadow-lg transition-all">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-accent bg-opacity-10 rounded-full mb-6">
-                <TrendingUp className="w-8 h-8 text-accent" />
+            <div className="text-center p-8 rounded-lg bg-white/10 hover:shadow-lg transition-all">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-cta rounded-full mb-6">
+                <TrendingUp className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-poppins font-semibold text-xl text-primary mb-4">
+              <h3 className="font-poppins font-semibold text-xl text-white mb-4">
                 Escalabilidade e Monetização
               </h3>
-              <p className="text-text-light">
+              <p className="text-white">
                 Comissionamento claro e transparente para quem deseja expandir e indicar novos participantes.
               </p>
             </div>
@@ -304,354 +458,185 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Diretrizes Section */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary text-center mb-12">
-            Diretrizes e Regras de Funcionamento
-          </h2>
-          <p className="text-center text-text-light mb-12 text-lg">
-            Para manter a qualidade do ecossistema, operamos com regras claras:
-          </p>
-          
-          <div className="space-y-6">
-            <div className="bg-body rounded-lg p-6 border-l-4 border-accent">
-              <h3 className="font-poppins font-semibold text-xl text-primary mb-2">
-                Acesso Imediato
-              </h3>
-              <p className="text-text-light">
-                Liberado automaticamente após a confirmação do pagamento.
-              </p>
-            </div>
-
-            <div className="bg-body rounded-lg p-6 border-l-4 border-accent">
-              <h3 className="font-poppins font-semibold text-xl text-primary mb-2">
-                Pagamento de Comissões
-              </h3>
-              <p className="text-text-light">
-                Transparência total. Valores pagos em até 30 dias após a confirmação da venda.
-              </p>
-            </div>
-
-            <div className="bg-body rounded-lg p-6 border-l-4 border-accent">
-              <h3 className="font-poppins font-semibold text-xl text-primary mb-2">
-                Código de Conduta
-              </h3>
-              <p className="text-text-light">
-                Prezamos pela ética. É estritamente proibido spam e qualquer forma de divulgação enganosa.
-              </p>
-            </div>
-
-            <div className="bg-body rounded-lg p-6 border-l-4 border-accent">
-              <h3 className="font-poppins font-semibold text-xl text-primary mb-2">
-                Profissionalismo Visual
-              </h3>
-              <p className="text-text-light">
-                A criação da sua página é assistida pelo nosso time de suporte e designers, garantindo o padrão de qualidade.
-              </p>
-            </div>
-
-            <div className="bg-body rounded-lg p-6 border-l-4 border-accent">
-              <h3 className="font-poppins font-semibold text-xl text-primary mb-2">
-                Ciclo de Ativação
-              </h3>
-              <p className="text-text-light">
-                Em caso de não renovação, a página é desativada e o direito às comissões futuras é encerrado.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Fluxo Operacional Section */}
+      {/* Passo a Passo Section (moved above Diretrizes) */}
       <section className="py-20 px-6 bg-body">
         <div className="max-w-5xl mx-auto">
-          <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary text-center mb-12">
-            Fluxo Operacional: Sua Jornada
-          </h2>
-          <p className="text-center text-text-light mb-12 text-lg">
-            Como funciona do momento da decisão até a ativação:
-          </p>
-          
+          <div className="flex justify-center mb-4">
+            <span className="inline-flex items-center bg-cta text-white px-4 py-2 rounded-md font-semibold">Passo a Passo</span>
+          </div>
+          <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary text-center mb-2">Jornada do Participante</h2>
+          <p className="text-center text-text-light mb-12 text-lg">Do início ao sucesso: veja como funciona sua entrada e crescimento no programa</p>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">
-                  1
+            {[
+              { n: '01', t: 'Escolha do Plano', d: 'Selecione o nível que melhor se adequa ao seu momento: Assinante, Associado ou Embaixador.' },
+              { n: '02', t: 'Pagamento e Confirmação', d: 'Realize o pagamento seguro e receba confirmação imediata por email.' },
+              { n: '03', t: 'Acesso Imediato', d: 'Entre na plataforma e acesse sua área exclusiva de membro.' },
+              { n: '04', t: 'Onboarding Personalizado', d: 'Receba orientações completas sobre como aproveitar todos os benefícios do seu nível.' },
+              { n: '05', t: 'Criação do Perfil', d: 'Monte seu perfil profissional com o apoio da equipe de designers.' },
+              { n: '06', t: 'Acesso ao Grupo Exclusivo', d: 'Entre no grupo de WhatsApp/Telegram da comunidade para networking imediato.' },
+              { n: '07', t: 'Publicação e Ativação', d: 'Seu perfil entra no ar e você começa a receber visibilidade no portal.' },
+              { n: '08', t: 'Treinamento de Ferramentas', d: 'Aprenda a usar todas as funcionalidades: link de indicação, painel de controle, materiais de divulgação.' },
+              { n: '09', t: 'Primeiras Conexões', d: 'Comece a fazer networking ativo com outros membros do programa.' },
+              { n: '10', t: 'Primeiras Indicações', d: 'Divulgue seu link personalizado e comece a gerar comissões.' },
+              { n: '11', t: 'Suporte Contínuo', d: 'Acesse suporte técnico, consultoria estratégica e acompanhamento de resultados.' },
+              { n: '12', t: 'Crescimento e Evolução', d: 'Monitore seus resultados, evolua de nível quando quiser e escale sua receita.' }
+            ].map((s) => (
+              <div key={s.n} className="bg-white rounded-lg p-6 shadow-md">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">{s.n}</div>
+                  <h3 className="font-poppins font-semibold text-lg text-primary">{s.t}</h3>
                 </div>
-                <h3 className="font-poppins font-semibold text-lg text-primary">
-                  Adesão
-                </h3>
+                <p className="text-text-light">{s.d}</p>
               </div>
-              <p className="text-text-light">
-                Escolha do plano ideal e realização do pagamento anual.
-              </p>
-            </div>
+            ))}
+          </div>
 
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">
-                  2
-                </div>
-                <h3 className="font-poppins font-semibold text-lg text-primary">
-                  Onboarding
-                </h3>
-              </div>
-              <p className="text-text-light">
-                Acesso imediato ao painel de controle.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">
-                  3
-                </div>
-                <h3 className="font-poppins font-semibold text-lg text-primary">
-                  Design
-                </h3>
-              </div>
-              <p className="text-text-light">
-                Agendamento com nossa equipe de designers para criação da sua Página Exclusiva.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">
-                  4
-                </div>
-                <h3 className="font-poppins font-semibold text-lg text-primary">
-                  Go Live
-                </h3>
-              </div>
-              <p className="text-text-light">
-                Ativação oficial da sua empresa no Portal e Destaques.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">
-                  5
-                </div>
-                <h3 className="font-poppins font-semibold text-lg text-primary">
-                  Expansão
-                </h3>
-              </div>
-              <p className="text-text-light">
-                Liberação do Escritório Virtual e dos Links de Indicação (Associados/Embaixadores).
-              </p>
-            </div>
-
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">
-                  6
-                </div>
-                <h3 className="font-poppins font-semibold text-lg text-primary">
-                  Gestão
-                </h3>
-              </div>
-              <p className="text-text-light">
-                Registro automático das suas vendas e recebimento de comissões (ciclo de 30 dias).
-              </p>
-            </div>
-
-            <div className="bg-white rounded-lg p-6 shadow-md md:col-span-2">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">
-                  7
-                </div>
-                <h3 className="font-poppins font-semibold text-lg text-primary">
-                  Acompanhamento
-                </h3>
-              </div>
-              <p className="text-text-light">
-                Suporte contínuo durante toda a vigência do plano.
-              </p>
-            </div>
+          <div className="text-center mt-10">
+            <p className="text-text-light text-lg mb-6">Tudo começa com uma escolha. Selecione seu plano e inicie sua jornada hoje!</p>
+            <button onClick={() => navigate('/cadastro')} className="bg-cta text-white px-8 py-4 rounded-md font-bold hover:bg-opacity-90 transition-all">Começar Agora</button>
           </div>
         </div>
       </section>
 
-      {/* Cenário de Mercado Section */}
+      {/* Comparativo de Níveis */}
       <section className="py-20 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary text-center mb-6">
-            Cenário de Mercado e Oportunidade
-          </h2>
-          <p className="text-center text-accent text-xl font-semibold mb-12">
-            Por que aderir agora?
-          </p>
-          
-          <div className="bg-body rounded-lg p-8 mb-8">
-            <p className="text-text-light text-lg leading-relaxed mb-6">
-              Os empreendedores estão saturados de promessas vazias. O mercado busca, hoje, soluções que entreguem:
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex items-start gap-3">
-                <Check className="w-6 h-6 text-accent mt-1 flex-shrink-0" />
-                <div>
-                  <h4 className="font-poppins font-semibold text-primary mb-1">Visibilidade Real</h4>
-                  <p className="text-text-light">Fugir do algoritmo das redes sociais e ser encontrado por quem busca serviços.</p>
-                </div>
-              </div>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary text-center mb-2">Compare os Níveis</h2>
+          <p className="text-center text-text-light mb-6 text-lg">Qual Plano é Melhor Para Você?</p>
+          <p className="text-center text-text-light mb-12">Veja lado a lado os benefícios e escolha o nível ideal para o seu momento</p>
 
-              <div className="flex items-start gap-3">
-                <Check className="w-6 h-6 text-accent mt-1 flex-shrink-0" />
-                <div>
-                  <h4 className="font-poppins font-semibold text-primary mb-1">Networking Qualificado</h4>
-                  <p className="text-text-light">Fugir de grupos de "curiosos" e falar com quem decide.</p>
-                </div>
-              </div>
+          <div className="overflow-x-auto bg-body rounded-lg">
+            <table className="min-w-full text-left">
+              <thead>
+                <tr className="bg-primary text-white">
+                  <th className="px-4 py-3">Benefícios</th>
+                  <th className="px-4 py-3">Assinante<br /><span className="text-gray-200 text-sm">R$ 997/ano</span></th>
+                  <th className="px-4 py-3">Associado<br /><span className="text-gray-200 text-sm">R$ 2.497/ano</span> <span className="ml-2 bg-cta text-white px-2 py-0.5 rounded-full text-xs">Mais Popular</span></th>
+                  <th className="px-4 py-3">Embaixador<br /><span className="text-gray-200 text-sm">R$ 3.997/ano</span></th>
+                </tr>
+              </thead>
+              <tbody className="divide-y">
+                {[
+                  { b: 'Perfil Profissional', a: 'v', s: 'v', e: 'v' },
+                  { b: 'Página Personalizada com Catálogo', a: 'v', s: 'v', e: 'v' },
+                  { b: 'Destaque em Buscas', a: 'v', s: 'v', e: 'v' },
+                  { b: 'Comunidade Conecta', a: 'v', s: 'v', e: 'v' },
+                  { b: 'Suporte humanizado', a: 'v', s: 'v', e: 'v' },
+                  { b: 'Destaque na Home', a: 'x', s: 'v', e: 'v' },
+                  { b: 'Link de Indicação Exclusivo', a: 'x', s: 'v', e: 'v' },
+                  { b: 'Escritório Virtual', a: 'x', s: 'v', e: 'v' },
+                  { b: 'EPN Play (1 ano)', a: 'x', s: 'v', e: 'v' },
+                ].map((row) => (
+                  <tr key={row.b} className="bg-white">
+                    <td className="px-4 py-3 text-primary font-medium">{row.b}</td>
+                    <td className="px-4 py-3">{row.a === 'v' ? <Check className="w-5 h-5 text-accent" /> : <X className="w-5 h-5 text-gray-400" />}</td>
+                    <td className="px-4 py-3">{row.s === 'v' ? <Check className="w-5 h-5 text-accent" /> : <X className="w-5 h-5 text-gray-400" />}</td>
+                    <td className="px-4 py-3">{row.e === 'v' ? <Check className="w-5 h-5 text-accent" /> : <X className="w-5 h-5 text-gray-400" />}</td>
+                  </tr>
+                ))}
 
-              <div className="flex items-start gap-3 md:col-span-2">
-                <Check className="w-6 h-6 text-accent mt-1 flex-shrink-0" />
-                <div>
-                  <h4 className="font-poppins font-semibold text-primary mb-1">Plataformas Confiáveis</h4>
-                  <p className="text-text-light">Ambientes seguros e profissionais.</p>
-                </div>
-              </div>
-            </div>
+                <tr className="bg-white">
+                  <td className="px-4 py-3 text-primary font-medium">Comissões (1º nível)</td>
+                  <td className="px-4 py-3"><span className="text-text-light">x</span></td>
+                  <td className="px-4 py-3"><span className="text-primary font-semibold">10%</span></td>
+                  <td className="px-4 py-3"><span className="text-primary font-semibold">10%</span></td>
+                </tr>
+
+                {[
+                  { b: 'Espaço para divulgar seus Eventos', a: 'x', s: 'x', e: 'v' },
+                  { b: 'Painel Global de Negócios e Networking global', a: 'x', s: 'x', e: 'v' },
+                  { b: 'Destaque Premium', a: 'x', s: 'x', e: 'v' },
+                  { b: 'Construção de Autoridade de Marca', a: 'x', s: 'x', e: 'v' },
+                ].map((row) => (
+                  <tr key={row.b} className="bg-white">
+                    <td className="px-4 py-3 text-primary font-medium">{row.b}</td>
+                    <td className="px-4 py-3">{row.a === 'v' ? <Check className="w-5 h-5 text-accent" /> : <X className="w-5 h-5 text-gray-400" />}</td>
+                    <td className="px-4 py-3">{row.s === 'v' ? <Check className="w-5 h-5 text-accent" /> : <X className="w-5 h-5 text-gray-400" />}</td>
+                    <td className="px-4 py-3">{row.e === 'v' ? <Check className="w-5 h-5 text-accent" /> : <X className="w-5 h-5 text-gray-400" />}</td>
+                  </tr>
+                ))}
+
+                <tr className="bg-white">
+                  <td className="px-4 py-3 text-primary font-medium">Comissão Exponencial até 3º Nível</td>
+                  <td className="px-4 py-3"><span className="text-text-light">x</span></td>
+                  <td className="px-4 py-3"><span className="text-text-light">x</span></td>
+                  <td className="px-4 py-3"><span className="text-primary font-semibold">10% + 5% + 2,5%</span></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
-          <div className="bg-gradient-to-r from-primary to-secondary rounded-lg p-8 text-white text-center">
-            <p className="text-lg leading-relaxed">
-              O Programa Conexão Empresarial destaca-se justamente por oferecer um <span className="font-semibold text-accent">ecossistema sólido, ativo e mensurável</span> — entregando muito além da simples exposição digital: entregamos <span className="font-semibold text-accent">pertencimento e negócios</span>.
-            </p>
+          <div className="flex flex-wrap justify-center gap-4 mt-8">
+            <button onClick={() => navigate('/cadastro?plan=assinante')} className="border-2 border-primary text-primary px-6 py-3 rounded-md font-bold hover:bg-primary hover:text-white transition-all">Escolher</button>
+            <button onClick={() => navigate('/cadastro?plan=associado')} className="bg-cta text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all">Escolher</button>
+            <button onClick={() => navigate('/cadastro?plan=embaixador')} className="bg-accent text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all">Escolher</button>
           </div>
         </div>
       </section>
 
-      {/* Personas Section */}
-      <section className="py-20 px-6 bg-body">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary text-center mb-12">
-            Qual é o seu Perfil?
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-lg p-8 shadow-md">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-                <h3 className="font-poppins font-bold text-xl text-primary">
-                  Você é Assinante se:
-                </h3>
-              </div>
-              <p className="text-text-light leading-relaxed">
-                Seu foco atual é organizar a casa, ter um link profissional para enviar a clientes e ser encontrado no Google e no Portal.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-lg p-8 shadow-md border-2 border-cta">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                <h3 className="font-poppins font-bold text-xl text-primary">
-                  Você é Associado se:
-                </h3>
-              </div>
-              <p className="text-text-light leading-relaxed">
-                Já está estabelecido, quer aparecer na vitrine principal e tem uma boa rede de contatos que pode monetizar indicando para o Portal.
-              </p>
-            </div>
-
-            <div className="bg-secondary rounded-lg p-8 shadow-md text-white">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                <h3 className="font-poppins font-bold text-xl">
-                  Você é Embaixador se:
-                </h3>
-              </div>
-              <p className="leading-relaxed">
-                É um líder nato. Quer ser visto como autoridade, promover seus eventos e construir uma equipe de vendas abaixo de você, gerando escala financeira em múltiplos níveis.
-              </p>
+      {/* Garantia Total */}
+      <section className="py-10 px-6 bg-blue-100/60">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white/10 rounded-lg p-6 text-center">
+            <div className="inline-flex items-center justify-center gap-3">
+              <ShieldCheck className="w-24 h-24 text-primary" />
+              <span className="font-poppins font-semibold text-primary">
+                Garantia Total: Todos os planos incluem garantia de 7 dias. Teste sem riscos e cancele quando quiser, sem burocracias.
+              </span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Diferenciais Section */}
+      
+
+
       <section className="py-20 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary text-center mb-12">
-            Nossos Diferenciais Competitivos
+        <div className="max-w-6xl mx-auto">
+          <h2 className="flex justify-center bg-cta text-white px-4 py-2 rounded-md font-semibold w-fit mx-auto text-center">
+            Por Que Somos o Ecossistema Digital Nº 1
           </h2>
+          <h3 className="font-poppins font-bold text-2xl md:text-3xl text-primary text-center mt-4">
+            Diferenciais do Maior Ecossistema Empresarial Digital do Brasil
+          </h3>
           <p className="text-center text-text-light mb-12 text-lg">
-            O que nos torna únicos:
+            O que torna o Programa Conexão Empresarial o principal ecossistema de networking qualificado e oportunidades de negócios do Brasil
           </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="flex items-start gap-3 bg-body rounded-lg p-6">
-              <Check className="w-6 h-6 text-accent mt-1 flex-shrink-0" />
-              <div>
-                <h4 className="font-poppins font-semibold text-lg text-primary mb-2">
-                  Ecossistema Real
-                </h4>
-                <p className="text-text-light">
-                  Não somos um robô, somos uma comunidade de empresas ativas.
-                </p>
-              </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+            <div className="bg-blue-100/60 rounded-lg p-8">
+              <div className="text-5xl md:text-6xl font-poppins font-extrabold text-primary">500+</div>
+              <div className="mt-2 font-poppins font-semibold text-primary text-xl">Empreendedores Conectados</div>
+              <p className="mt-3 text-text-light">
+                Uma comunidade ativa e engajada gerando negócios reais todos os dias
+              </p>
             </div>
 
-            <div className="flex items-start gap-3 bg-body rounded-lg p-6">
-              <Check className="w-6 h-6 text-accent mt-1 flex-shrink-0" />
-              <div>
-                <h4 className="font-poppins font-semibold text-lg text-primary mb-2">
-                  Networking Guiado
-                </h4>
-                <p className="text-text-light">
-                  Oportunidades contínuas de conexão.
-                </p>
+            <div className="space-y-4">
+              <div className="bg-body rounded-lg p-6">
+                <h4 className="font-poppins font-semibold text-lg text-primary mb-2">Ecossistema Real e Ativo</h4>
+                <p className="text-text-light">Comunidade engajada gerando oportunidades concretas</p>
               </div>
-            </div>
-
-            <div className="flex items-start gap-3 bg-body rounded-lg p-6">
-              <Check className="w-6 h-6 text-accent mt-1 flex-shrink-0" />
-              <div>
-                <h4 className="font-poppins font-semibold text-lg text-primary mb-2">
-                  Ambiente B2B
-                </h4>
-                <p className="text-text-light">
-                  Foco total em fechamento de negócios.
-                </p>
+              <div className="bg-body rounded-lg p-6">
+                <h4 className="font-poppins font-semibold text-lg text-primary mb-2">Networking Guiado</h4>
+                <p className="text-text-light">Conexões estratégicas com estrutura e ferramentas</p>
               </div>
-            </div>
-
-            <div className="flex items-start gap-3 bg-body rounded-lg p-6">
-              <Check className="w-6 h-6 text-accent mt-1 flex-shrink-0" />
-              <div>
-                <h4 className="font-poppins font-semibold text-lg text-primary mb-2">
-                  Comissionamento Transparente
-                </h4>
-                <p className="text-text-light">
-                  Modelo simples, sem letras miúdas.
-                </p>
+              <div className="bg-body rounded-lg p-6">
+                <h4 className="font-poppins font-semibold text-lg text-primary mb-2">Visibilidade Estratégica</h4>
+                <p className="text-text-light">Seu negócio onde realmente importa</p>
               </div>
-            </div>
-
-            <div className="flex items-start gap-3 bg-body rounded-lg p-6">
-              <Check className="w-6 h-6 text-accent mt-1 flex-shrink-0" />
-              <div>
-                <h4 className="font-poppins font-semibold text-lg text-primary mb-2">
-                  Suporte de Design
-                </h4>
-                <p className="text-text-light">
-                  Entregamos páginas profissionais, não apenas um login.
-                </p>
+              <div className="bg-body rounded-lg p-6">
+                <h4 className="font-poppins font-semibold text-lg text-primary mb-2">Páginas Profissionais</h4>
+                <p className="text-text-light">Design profissional incluído, sem custos extras</p>
               </div>
-            </div>
-
-            <div className="flex items-start gap-3 bg-body rounded-lg p-6">
-              <Check className="w-6 h-6 text-accent mt-1 flex-shrink-0" />
-              <div>
-                <h4 className="font-poppins font-semibold text-lg text-primary mb-2">
-                  Sustentabilidade
-                </h4>
-                <p className="text-text-light">
-                  Modelo escalável que cresce junto com você.
-                </p>
+              <div className="bg-body rounded-lg p-6">
+                <h4 className="font-poppins font-semibold text-lg text-primary mb-2">Modelo Sustentável</h4>
+                <p className="text-text-light">Crescimento real e escalável da sua receita</p>
+              </div>
+              <div className="bg-body rounded-lg p-6">
+                <h4 className="font-poppins font-semibold text-lg text-primary mb-2">Comissionamento Transparente</h4>
+                <p className="text-text-light">Regras claras, pagamentos em até 30 dias</p>
               </div>
             </div>
           </div>
@@ -659,42 +644,99 @@ export default function Home() {
       </section>
 
       {/* CTA Final Section */}
+      <FAQSection />
+      <section className="py-20 px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="flex justify-center bg-cta text-white px-4 py-2 rounded-md font-semibold w-fit mx-auto text-center">Transparência Total</h2>
+          <h3 className="font-poppins font-bold text-2xl md:text-3xl text-primary text-center">Termos e Condições do Programa</h3>
+          <p className="text-center text-text-light mb-12 text-lg">Tudo o que você precisa saber sobre como funciona o Programa Conexão Empresarial</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-body rounded-lg p-6">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-cta rounded-full mb-3">
+                <Zap className="w-6 h-6 text-white" />
+              </div>
+              <h4 className="font-poppins font-semibold text-lg text-primary mb-2">Acesso Imediato</h4>
+              <p className="text-text-light">Confirmação de pagamento = ativação instantânea. Comece a usar todos os benefícios do seu plano imediatamente após o pagamento ser processado.</p>
+            </div>
+            <div className="bg-body rounded-lg p-6">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-cta rounded-full mb-3">
+                <CreditCard className="w-6 h-6 text-white" />
+              </div>
+              <h4 className="font-poppins font-semibold text-lg text-primary mb-2">Pagamento de Comissões</h4>
+              <p className="text-text-light">As comissões são calculadas e pagas em até 30 dias após a confirmação da venda. Todas as transações podem ser acompanhadas em tempo real no seu painel.</p>
+            </div>
+            <div className="bg-body rounded-lg p-6">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-cta rounded-full mb-3">
+                <Scale className="w-6 h-6 text-white" />
+              </div>
+              <h4 className="font-poppins font-semibold text-lg text-primary mb-2">Conduta Ética</h4>
+              <p className="text-text-light">Proibido spam, práticas enganosas ou uso indevido da marca. Mantenha sempre uma postura profissional e ética em todas as interações.</p>
+            </div>
+            <div className="bg-body rounded-lg p-6">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-cta rounded-full mb-3">
+                <LayoutDashboard className="w-6 h-6 text-white" />
+              </div>
+              <h4 className="font-poppins font-semibold text-lg text-primary mb-2">Criação de Páginas</h4>
+              <p className="text-text-light">Todas as páginas são desenvolvidas com apoio de designers profissionais. Você fornece o conteúdo e nós criamos o design que converte.</p>
+            </div>
+            <div className="bg-body rounded-lg p-6">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-cta rounded-full mb-3">
+                <RefreshCw className="w-6 h-6 text-white" />
+              </div>
+              <h4 className="font-poppins font-semibold text-lg text-primary mb-2">Renovação e Upgrades</h4>
+              <p className="text-text-light">Os planos são anuais com renovação automática (pode ser cancelada a qualquer momento). Upgrades entre níveis podem ser feitos a qualquer hora.</p>
+            </div>
+            <div className="bg-body rounded-lg p-6">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-cta rounded-full mb-3">
+                <Headphones className="w-6 h-6 text-white" />
+              </div>
+              <h4 className="font-poppins font-semibold text-lg text-primary mb-2">Suporte Humanizado</h4>
+              <p className="text-text-light">Você terá suporte técnico completo e humanizado. O tempo de resposta pode variar de 12h a 48h conforme demanda.</p>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="py-20 px-6 bg-gradient-to-b from-primary to-secondary text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-poppins font-bold text-3xl md:text-4xl mb-6">
-            Seu negócio merece presença, reconhecimento e espaço
+            Pronto para Transformar Seu Negócio?
           </h2>
           <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-            O Programa Conexão Empresarial é a porta de entrada para ampliar sua visibilidade, construir relacionamentos estratégicos e acessar novas oportunidades dentro de um ecossistema empresarial forte e em evolução constante.
-          </p>
-          <p className="text-xl font-semibold mb-8 text-accent">
-            Dê o passo que vai posicionar sua empresa no cenário certo.
-          </p>
-          <p className="text-lg mb-6">
-            Escolha o nível que acompanha seu momento de crescimento:
+            Junte-se a centenas de empreendedores que já estão crescendo com o Portal Empreendedor
           </p>
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             <button 
-              onClick={() => navigate('/cadastro?plan=assinante')}
-              className="bg-white text-primary px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all flex items-center gap-2"
+              onClick={scrollToPlanos}
+              className="bg-white text-primary px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all"
             >
-              <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-              Assinante
+              Escolher Meu Plano
             </button>
             <button 
-              onClick={() => navigate('/cadastro?plan=associado')}
-              className="bg-cta text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all flex items-center gap-2"
+              onClick={() => navigate('/cadastro')}
+              className="bg-cta text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all"
             >
-              <div className="w-3 h-3 rounded-full bg-green-500"></div>
-              Associado
+              CADASTRE-SE NO GUIA
             </button>
             <button 
-              onClick={() => navigate('/cadastro?plan=embaixador')}
-              className="bg-accent text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all flex items-center gap-2"
+              onClick={() => window.open('https://wa.me/', '_blank')}
+              className="bg-green-600 text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all"
             >
-              <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-              Embaixador
+              Falar no WhatsApp
             </button>
+          </div>
+          <div className="flex flex-wrap justify-center gap-6">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-cta" />
+              <span className="text-white/90 text-sm">Garantia de 7 dias</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Lock className="w-5 h-5 text-cta" />
+              <span className="text-white/90 text-sm">Pagamento seguro</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Headphones className="w-5 h-5 text-cta" />
+              <span className="text-white/90 text-sm">Suporte humanizado</span>
+            </div>
           </div>
         </div>
       </section>

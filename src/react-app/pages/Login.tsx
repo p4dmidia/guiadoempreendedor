@@ -10,6 +10,11 @@ export default function Login() {
   const [password, setPassword] = useState('')
   const [isPending, setIsPending] = useState(false)
   const [userId, setUserId] = useState<string | null>(null)
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
+  const showToast = (msg: string) => {
+    setErrorMsg(msg)
+    setTimeout(() => setErrorMsg(null), 5000)
+  }
 
   useEffect(() => {
     const init = async () => {
@@ -29,12 +34,17 @@ export default function Login() {
     let supabase
     try {
       supabase = getSupabase()
-    } catch (_e) {
+    } catch (e) {
+      console.error('Erro ao inicializar Supabase:', e)
+      showToast('Não foi possível inicializar a autenticação. Tente novamente.')
       setIsPending(false)
       return
     }
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) {
+      console.error('Erro de login Supabase:', error)
+      const msg = (error as any)?.message || (error as any)?.error_description || 'Erro ao fazer login'
+      showToast(msg)
       setIsPending(false)
       return
     }
@@ -46,6 +56,11 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center px-6 py-12">
       <div className="w-full max-w-md">
+        {errorMsg && (
+          <div className="fixed top-4 right-4 bg-red-600 text-white px-4 py-3 rounded-md shadow-lg z-50">
+            {errorMsg}
+          </div>
+        )}
         <div className="bg-white rounded-lg shadow-lg p-8">
           {/* Logo */}
           <div className="text-center mb-8">
