@@ -40,7 +40,7 @@ export default function ReferralCard() {
 
   if (!affiliate || !affiliate.referral_code) return null
 
-  const link = `${window.location.origin}/cadastro?ref=${affiliate.referral_code}`
+  const link = `${window.location.origin}/cadastro-guia-comercial?ref=${affiliate.referral_code}`
   const isAmbassador = affiliate.plan === 'embaixador'
   const title = isAmbassador ? 'Sua Rede de Expansão' : 'Link de Venda Direta'
   const text = isAmbassador

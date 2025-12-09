@@ -313,11 +313,16 @@ export default function Cadastro() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
+          <img 
+            src="/programa-conexao-empresarial.jpeg"
+            alt="Programa Conexão Empresarial"
+            className="h-20 mx-auto mb-4 object-contain"
+          />
           <div 
             className="font-poppins font-bold text-3xl text-primary mb-2 cursor-pointer inline-block"
             onClick={() => navigate('/')}
           >
-            GUIA Empreendedor Digital
+            Guia Portal Empreendedor
           </div>
           <p className="text-text-light">Finalize seu cadastro e comece a crescer</p>
         </div>

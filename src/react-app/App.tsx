@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/react-app/auth/AuthProvider";
 import HomePage from "@/react-app/pages/Home";
 import LoginPage from "@/react-app/pages/Login";
@@ -82,7 +82,8 @@ export default function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
-              <Route path="/cadastro" element={<CadastroPage />} />
+              <Route path="/cadastro-guia-comercial" element={<CadastroPage />} />
+              <Route path="/cadastro" element={<Navigate to="/cadastro-guia-comercial" replace />} />
               <Route path="/auth/callback" element={<AuthCallbackPage />} />
               <Route path="/area-membros" element={<AreaMembrosPage />} />
               <Route path="/payment-success" element={<PaymentSuccessPage />} />
@@ -90,8 +91,10 @@ export default function App() {
               <Route path="/dashboard/financeiro" element={<FinanceiroPage />} />
               <Route path="/dashboard/perfil" element={<PerfilPage />} />
               <Route path="/dashboard/comunidade" element={<MemberCommunityPage />} />
-              <Route path="/blog" element={<BlogListPage />} />
-              <Route path="/blog/:slug" element={<BlogPostPage />} />
+              <Route path="/embaixadores" element={<BlogListPage />} />
+              <Route path="/embaixadores/:slug" element={<BlogPostPage />} />
+              <Route path="/blog" element={<Navigate to="/embaixadores" replace />} />
+              <Route path="/blog/:slug" element={<Navigate to="/embaixadores/:slug" replace />} />
             </Routes>
           </AuthProvider>
         } />

@@ -37,7 +37,7 @@ export default function Perfil() {
         .eq('organization_id', ORG_ID)
         .eq('user_id', uid)
         .maybeSingle()
-      if (!aff) { navigate('/cadastro'); return }
+      if (!aff) { navigate('/cadastro-guia-comercial'); return }
       setAffId(aff.id)
       setMember({ plan: aff.plan, full_name: aff.full_name })
       setForm({

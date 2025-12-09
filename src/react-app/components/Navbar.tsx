@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import LanguageSwitcher from '@/react-app/components/LanguageSwitcher';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -13,10 +14,10 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-primary px-6 py-4 sticky top-0 z-50">
+    <nav className="bg-white px-6 py-4 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <img 
-          src="https://mocha-cdn.com/019ae075-432d-7f0b-9b71-b1650e85c237/Fundo-Escuro.png" 
+          src="/Logo%20Oficial.png" 
           alt="GUIA Empreendedor Digital"
           className="h-24 cursor-pointer"
           onClick={() => navigate('/')}
@@ -25,44 +26,51 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           <button 
             onClick={() => scrollToSection('sobre')}
-            className="text-white hover:text-accent transition-colors"
+            className="text-primary hover:text-accent transition-colors"
           >
             Sobre
           </button>
           <button 
+            onClick={() => navigate('/embaixadores')}
+            className="text-primary hover:text-accent transition-colors"
+          >
+            Embaixadores
+          </button>
+          <button 
             onClick={() => scrollToSection('beneficios')}
-            className="text-white hover:text-accent transition-colors"
+            className="text-primary hover:text-accent transition-colors"
           >
             Benefícios
           </button>
           <button 
-            onClick={() => scrollToSection('niveis')}
-            className="text-white hover:text-accent transition-colors"
+            onClick={() => scrollToSection('planos')}
+            className="text-primary hover:text-accent transition-colors"
           >
             Níveis
           </button>
           <button 
             onClick={() => scrollToSection('contato')}
-            className="text-white hover:text-accent transition-colors"
+            className="text-primary hover:text-accent transition-colors"
           >
             Contato
           </button>
           <button 
-            onClick={() => navigate('/cadastro')}
-            className="bg-cta text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-all font-medium"
+            onClick={() => navigate('/cadastro-guia-comercial')}
+            className="bg-[#104473] text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-all font-medium"
           >
             Começar agora
           </button>
           <button 
             onClick={() => navigate('/login')}
-            className="border-2 border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-primary transition-all font-medium"
+            className="border-2 border-primary text-primary px-6 py-2 rounded-md hover:bg-primary hover:text-white transition-all font-medium"
           >
             Entrar
           </button>
+          <LanguageSwitcher />
         </div>
 
         <button 
-          className="md:hidden text-white"
+          className="md:hidden text-primary"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-expanded={mobileMenuOpen}
           aria-label="Abrir menu"
@@ -73,45 +81,54 @@ export default function Navbar() {
         </button>
       </div>
       {mobileMenuOpen && (
-        <div className="md:hidden mt-4 pt-4 border-t border-white/20">
+        <div className="md:hidden mt-4 pt-4 border-t border-primary/20">
           <div className="flex flex-col gap-4">
             <button 
               onClick={() => { setMobileMenuOpen(false); scrollToSection('sobre'); }}
-              className="text-white text-left hover:text-accent transition-colors"
+              className="text-primary text-left hover:text-accent transition-colors"
             >
               Sobre
             </button>
             <button 
               onClick={() => { setMobileMenuOpen(false); scrollToSection('beneficios'); }}
-              className="text-white text-left hover:text-accent transition-colors"
+              className="text-primary text-left hover:text-accent transition-colors"
             >
               Benefícios
             </button>
             <button 
-              onClick={() => { setMobileMenuOpen(false); scrollToSection('niveis'); }}
-              className="text-white text-left hover:text-accent transition-colors"
+              onClick={() => { setMobileMenuOpen(false); scrollToSection('planos'); }}
+              className="text-primary text-left hover:text-accent transition-colors"
             >
               Níveis
             </button>
             <button 
               onClick={() => { setMobileMenuOpen(false); scrollToSection('contato'); }}
-              className="text-white text-left hover:text-accent transition-colors"
+              className="text-primary text-left hover:text-accent transition-colors"
             >
               Contato
             </button>
             <button 
-              onClick={() => { setMobileMenuOpen(false); navigate('/cadastro'); }}
-              className="bg-cta text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-all font-medium w-full text-left"
+              onClick={() => { setMobileMenuOpen(false); navigate('/embaixadores'); }}
+              className="text-primary text-left hover:text-accent transition-colors"
+            >
+              Embaixadores
+            </button>
+            <button 
+              onClick={() => { setMobileMenuOpen(false); navigate('/cadastro-guia-comercial'); }}
+              className="bg-[#104473] text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-all font-medium w-full text-left"
             >
               Começar agora
             </button>
-            <button 
-              onClick={() => { setMobileMenuOpen(false); navigate('/login'); }}
-              className="border-2 border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-primary transition-all font-medium w-full text-left"
-            >
-              Entrar
-            </button>
+          <button 
+            onClick={() => { setMobileMenuOpen(false); navigate('/login'); }}
+            className="border-2 border-primary text-primary px-6 py-2 rounded-md hover:bg-primary hover:text-white transition-all font-medium w-full text-left"
+          >
+            Entrar
+          </button>
+          <div className="pt-2 border-t border-primary/20">
+            <LanguageSwitcher />
           </div>
+        </div>
         </div>
       )}
     </nav>

@@ -27,12 +27,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen font-poppins">
       <Navbar />
       
       {/* Hero Section */}
       <section id="inicio" className="relative py-24 px-6 bg-center bg-cover" style={{ backgroundImage: "url('/hero-conexao.jpg')" }}>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/85"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[rgba(6,29,44,0.55)] to-[rgba(6,29,44,0.85)]"></div>
         <div className="relative max-w-4xl mx-auto text-center">
           <div className="flex justify-center mb-4">
             <span className="inline-flex items-center gap-2 bg-cta text-white px-4 py-2 rounded-md font-semibold text-base md:text-lg">
@@ -49,7 +49,7 @@ export default function Home() {
             Ecossistema Empresarial • Networking Qualificado • Crescimento Digital
           </p>
           <p className="text-white text-lg md:text-xl mb-8 font-medium">
-            O <span className="font-semibold">Programa Conexão Empresarial</span> é reconhecido como o <span className="font-semibold">principal ecossistema empresarial e de networking qualificado do Brasil</span>, conectando empreendedores brasileiros com oportunidades reais de crescimento.
+            O principal ecossistema de networking qualificado e oportunidades de negócios do Brasil
           </p>
           <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div className="rounded-lg border border-primary bg-primary/90 text-white p-4 flex items-center gap-3">
@@ -303,7 +303,7 @@ export default function Home() {
       </section>
 
       {/* Pricing Section */}
-      <section id="planos" className="py-20 px-6 bg-body">
+      <section id="niveis" className="py-20 px-6 bg-body">
         <div className="max-w-7xl mx-auto">
           <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary text-center mb-4">
             Níveis do Programa
@@ -347,7 +347,7 @@ export default function Home() {
               </ul>
               
               <button 
-                onClick={() => navigate('/cadastro?plan=assinante')}
+                onClick={() => navigate('/cadastro-guia-comercial?plan=assinante')}
                 className="w-full border-2 border-primary text-primary py-3 rounded-md font-bold hover:bg-primary hover:text-white transition-all"
               >
                 Ser Assinante
@@ -402,7 +402,7 @@ export default function Home() {
               </ul>
               
               <button 
-                onClick={() => navigate('/cadastro?plan=associado')}
+                onClick={() => navigate('/cadastro-guia-comercial?plan=associado')}
                 className="w-full bg-cta text-white py-3 rounded-md font-bold hover:bg-opacity-90 transition-all shadow-md hover:shadow-lg"
               >
                 Ser Associado
@@ -448,7 +448,7 @@ export default function Home() {
               </ul>
               
               <button 
-                onClick={() => navigate('/cadastro?plan=embaixador')}
+                onClick={() => navigate('/cadastro-guia-comercial?plan=embaixador')}
                 className="w-full bg-accent text-white py-3 rounded-md font-bold hover:bg-opacity-90 transition-all"
               >
                 Aplicar para Embaixador
@@ -494,26 +494,36 @@ export default function Home() {
 
           <div className="text-center mt-10">
             <p className="text-text-light text-lg mb-6">Tudo começa com uma escolha. Selecione seu plano e inicie sua jornada hoje!</p>
-            <button onClick={() => navigate('/cadastro')} className="bg-cta text-white px-8 py-4 rounded-md font-bold hover:bg-opacity-90 transition-all">Começar Agora</button>
+            <button onClick={() => navigate('/cadastro-guia-comercial')} className="bg-cta text-white px-8 py-4 rounded-md font-bold hover:bg-opacity-90 transition-all">Começar Agora</button>
           </div>
         </div>
       </section>
 
       {/* Comparativo de Níveis */}
-      <section className="py-20 px-6 bg-white">
+      <section id="planos" className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary text-center mb-2">Compare os Níveis</h2>
           <p className="text-center text-text-light mb-6 text-lg">Qual Plano é Melhor Para Você?</p>
           <p className="text-center text-text-light mb-12">Veja lado a lado os benefícios e escolha o nível ideal para o seu momento</p>
 
           <div className="overflow-x-auto bg-body rounded-lg">
-            <table className="min-w-full text-left">
+            <table className="min-w-full">
               <thead>
                 <tr className="bg-primary text-white">
-                  <th className="px-4 py-3">Benefícios</th>
-                  <th className="px-4 py-3">Assinante<br /><span className="text-gray-200 text-sm">R$ 997/ano</span></th>
-                  <th className="px-4 py-3">Associado<br /><span className="text-gray-200 text-sm">R$ 2.497/ano</span> <span className="ml-2 bg-cta text-white px-2 py-0.5 rounded-full text-xs">Mais Popular</span></th>
-                  <th className="px-4 py-3">Embaixador<br /><span className="text-gray-200 text-sm">R$ 3.997/ano</span></th>
+                  <th className="px-4 py-3 text-cta">Benefícios</th>
+                  <th className="px-4 py-3 text-cta text-center">
+                    <span className="inline-flex justify-center mb-1"><User className="w-5 h-5 text-cta" /></span>
+                    <span className="text-white">Assinante</span><br /><span className="text-gray-200 text-sm">R$ 997/ano</span><br /><span className="text-green-300 text-xs">em até 12x*</span>
+                  </th>
+                  <th className="px-4 py-3 text-cta text-center">
+                    <span className="inline-flex justify-center mb-1"><Users className="w-5 h-5 text-cta" /></span>
+                    <span className="text-white">Associado</span><br /><span className="text-gray-200 text-sm">R$ 2.497/ano</span> <span className="ml-2 bg-cta text-white px-2 py-0.5 rounded-full text-xs">Mais Popular</span><br /><span className="text-green-300 text-xs">em até 12x*</span>
+                  </th>
+                  <th className="px-4 py-3 text-cta text-center">
+                    <span className="inline-flex justify-center mb-1"><Crown className="w-5 h-5 text-cta" /></span>
+                    <span className="text-white">Embaixador</span><br /><span className="text-gray-200 text-sm">R$ 3.997/ano</span><br /><span className="text-green-300 text-xs">em até 12x*</span>
+                    <div className="mt-1 inline-block bg-blue-200 text-primary px-2 py-0.5 rounded text-xs">Destaque</div>
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y">
@@ -530,17 +540,17 @@ export default function Home() {
                 ].map((row) => (
                   <tr key={row.b} className="bg-white">
                     <td className="px-4 py-3 text-primary font-medium">{row.b}</td>
-                    <td className="px-4 py-3">{row.a === 'v' ? <Check className="w-5 h-5 text-accent" /> : <X className="w-5 h-5 text-gray-400" />}</td>
-                    <td className="px-4 py-3">{row.s === 'v' ? <Check className="w-5 h-5 text-accent" /> : <X className="w-5 h-5 text-gray-400" />}</td>
-                    <td className="px-4 py-3">{row.e === 'v' ? <Check className="w-5 h-5 text-accent" /> : <X className="w-5 h-5 text-gray-400" />}</td>
+                    <td className="px-4 py-3"><div className="w-full flex items-center justify-center">{row.a === 'v' ? <Check className="w-5 h-5 text-accent mx-auto" /> : <X className="w-5 h-5 text-gray-400 mx-auto" />}</div></td>
+                    <td className="px-4 py-3"><div className="w-full flex items-center justify-center">{row.s === 'v' ? <Check className="w-5 h-5 text-accent mx-auto" /> : <X className="w-5 h-5 text-gray-400 mx-auto" />}</div></td>
+                    <td className="px-4 py-3"><div className="w-full flex items-center justify-center">{row.e === 'v' ? <Check className="w-5 h-5 text-accent mx-auto" /> : <X className="w-5 h-5 text-gray-400 mx-auto" />}</div></td>
                   </tr>
                 ))}
 
                 <tr className="bg-white">
                   <td className="px-4 py-3 text-primary font-medium">Comissões (1º nível)</td>
-                  <td className="px-4 py-3"><span className="text-text-light">x</span></td>
-                  <td className="px-4 py-3"><span className="text-primary font-semibold">10%</span></td>
-                  <td className="px-4 py-3"><span className="text-primary font-semibold">10%</span></td>
+                  <td className="px-4 py-3"><div className="w-full flex items-center justify-center"><X className="w-5 h-5 text-gray-400 mx-auto" /></div></td>
+                  <td className="px-4 py-3"><div className="w-full flex items-center justify-center"><span className="text-primary font-semibold">10%</span></div></td>
+                  <td className="px-4 py-3"><div className="w-full flex items-center justify-center"><span className="text-primary font-semibold">10%</span></div></td>
                 </tr>
 
                 {[
@@ -551,16 +561,16 @@ export default function Home() {
                 ].map((row) => (
                   <tr key={row.b} className="bg-white">
                     <td className="px-4 py-3 text-primary font-medium">{row.b}</td>
-                    <td className="px-4 py-3">{row.a === 'v' ? <Check className="w-5 h-5 text-accent" /> : <X className="w-5 h-5 text-gray-400" />}</td>
-                    <td className="px-4 py-3">{row.s === 'v' ? <Check className="w-5 h-5 text-accent" /> : <X className="w-5 h-5 text-gray-400" />}</td>
-                    <td className="px-4 py-3">{row.e === 'v' ? <Check className="w-5 h-5 text-accent" /> : <X className="w-5 h-5 text-gray-400" />}</td>
+                    <td className="px-4 py-3"><div className="w-full flex items-center justify-center">{row.a === 'v' ? <Check className="w-5 h-5 text-accent mx-auto" /> : <X className="w-5 h-5 text-gray-400 mx-auto" />}</div></td>
+                    <td className="px-4 py-3"><div className="w-full flex items-center justify-center">{row.s === 'v' ? <Check className="w-5 h-5 text-accent mx-auto" /> : <X className="w-5 h-5 text-gray-400 mx-auto" />}</div></td>
+                    <td className="px-4 py-3"><div className="w-full flex items-center justify-center">{row.e === 'v' ? <Check className="w-5 h-5 text-accent mx-auto" /> : <X className="w-5 h-5 text-gray-400 mx-auto" />}</div></td>
                   </tr>
                 ))}
 
                 <tr className="bg-white">
                   <td className="px-4 py-3 text-primary font-medium">Comissão Exponencial até 3º Nível</td>
-                  <td className="px-4 py-3"><span className="text-text-light">x</span></td>
-                  <td className="px-4 py-3"><span className="text-text-light">x</span></td>
+                  <td className="px-4 py-3"><div className="w-full flex items-center justify-center"><X className="w-5 h-5 text-gray-400" /></div></td>
+                  <td className="px-4 py-3"><div className="w-full flex items-center justify-center"><X className="w-5 h-5 text-gray-400" /></div></td>
                   <td className="px-4 py-3"><span className="text-primary font-semibold">10% + 5% + 2,5%</span></td>
                 </tr>
               </tbody>
@@ -568,9 +578,9 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 mt-8">
-            <button onClick={() => navigate('/cadastro?plan=assinante')} className="border-2 border-primary text-primary px-6 py-3 rounded-md font-bold hover:bg-primary hover:text-white transition-all">Escolher</button>
-            <button onClick={() => navigate('/cadastro?plan=associado')} className="bg-cta text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all">Escolher</button>
-            <button onClick={() => navigate('/cadastro?plan=embaixador')} className="bg-accent text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all">Escolher</button>
+            <button onClick={() => navigate('/cadastro-guia-comercial?plan=assinante')} className="border-2 border-primary text-primary px-6 py-3 rounded-md font-bold hover:bg-primary hover:text-white transition-all">Escolher</button>
+            <button onClick={() => navigate('/cadastro-guia-comercial?plan=associado')} className="bg-cta text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all">Escolher</button>
+            <button onClick={() => navigate('/cadastro-guia-comercial?plan=embaixador')} className="bg-accent text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all">Escolher</button>
           </div>
         </div>
       </section>
@@ -712,13 +722,13 @@ export default function Home() {
               Escolher Meu Plano
             </button>
             <button 
-              onClick={() => navigate('/cadastro')}
+              onClick={() => navigate('/cadastro-guia-comercial')}
               className="bg-cta text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all"
             >
               CADASTRE-SE NO GUIA
             </button>
             <button 
-              onClick={() => window.open('https://wa.me/', '_blank')}
+              onClick={() => { const m = 'Olá, gostaria de ter mais detalhes sobre os planos do Guia Portal Empreendedor'; window.open(`https://wa.me/5511958080801?text=${encodeURIComponent(m)}`, '_blank') }}
               className="bg-green-600 text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all"
             >
               Falar no WhatsApp

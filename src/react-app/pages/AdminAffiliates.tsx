@@ -112,7 +112,7 @@ export default function AdminAffiliates() {
         <div className="flex items-center justify-between mb-4">
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Pesquisar por nome, plano, email" className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-md" />
           <div className="flex items-center gap-2">
-            <button onClick={() => navigate('/cadastro')} className="px-4 py-2 bg-primary text-white rounded-md hover:bg-opacity-90 flex items-center gap-2"><Plus className="w-4 h-4" />Cadastrar Novo</button>
+            <button onClick={() => navigate('/cadastro-guia-comercial')} className="px-4 py-2 bg-primary text-white rounded-md hover:bg-opacity-90 flex items-center gap-2"><Plus className="w-4 h-4" />Cadastrar Novo</button>
             <button onClick={exportData} className="px-4 py-2 bg-cta text-white rounded-md hover:bg-opacity-90 flex items-center gap-2"><Download className="w-4 h-4" />Exportar</button>
           </div>
         </div>

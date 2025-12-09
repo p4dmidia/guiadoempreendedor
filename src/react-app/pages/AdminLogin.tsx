@@ -52,9 +52,9 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-gradient-to-b from-primary to-secondary">
+    <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-white">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-lg shadow-2xl p-8">
+        <div className="rounded-lg shadow-2xl p-8" style={{ backgroundColor: '#104473' }}>
           {/* Logo */}
           <div className="text-center mb-8">
             <img 
@@ -62,12 +62,12 @@ export default function AdminLogin() {
               alt="Guia Portal Empreendedor"
               className="h-24 mx-auto mb-4 object-contain"
             />
-            <h1 className="font-poppins font-bold text-2xl text-primary">
+            <h1 className="font-poppins font-bold text-2xl text-white">
               Painel Administrativo
             </h1>
-            <div className="flex items-center justify-center gap-2 text-accent mt-2">
-              <Lock className="w-4 h-4" />
-              <span className="text-sm font-medium">Acesso Restrito</span>
+            <div className="flex items-center justify-center gap-2 text-white mt-2">
+              <Lock className="w-4 h-4 text-white" />
+              <span className="text-sm font-medium text-white">Acesso Restrito</span>
             </div>
           </div>
 
@@ -79,7 +79,7 @@ export default function AdminLogin() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-text-light font-medium mb-2">
+              <label htmlFor="email" className="block text-white font-medium mb-2">
                 Email
               </label>
               <input
@@ -95,7 +95,7 @@ export default function AdminLogin() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-text-light font-medium mb-2">Senha</label>
+              <label htmlFor="password" className="block text-white font-medium mb-2">Senha</label>
               <div className="relative">
                 <input
                   id="password"
@@ -110,7 +110,7 @@ export default function AdminLogin() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#104473] hover:text-white"
                   aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
@@ -130,7 +130,7 @@ export default function AdminLogin() {
           <div className="mt-6 text-center">
             <button 
               onClick={() => navigate('/')}
-              className="text-primary hover:text-accent transition-colors text-sm"
+              className="text-white hover:text-accent transition-colors text-sm"
             >
               ← Voltar para o site
             </button>

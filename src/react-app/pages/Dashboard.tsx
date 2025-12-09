@@ -123,7 +123,7 @@ export default function Dashboard() {
           }
           affiliate = { ...anyAff, organization_id: anyAff.organization_id ?? ORG_ID }
         } else {
-          navigate('/cadastro')
+          navigate('/cadastro-guia-comercial')
           return
         }
       }
@@ -250,13 +250,13 @@ export default function Dashboard() {
       })))
     } catch (error) {
       console.error('Error fetching member data:', error)
-      navigate('/cadastro')
+      navigate('/cadastro-guia-comercial')
     }
   }
 
   const copyReferralLink = () => {
     if (member) {
-      const link = `${window.location.origin}/cadastro?ref=${member.referral_code}`;
+      const link = `${window.location.origin}/cadastro-guia-comercial?ref=${member.referral_code}`;
       navigator.clipboard.writeText(link);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
