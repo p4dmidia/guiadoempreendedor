@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Lock, Eye, EyeOff } from 'lucide-react'
 import { getSupabase } from '../lib/supabaseClient'
 import { ORG_ID } from '../lib/org'
+import { getPlanMeta } from '../lib/plans'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -12,6 +13,8 @@ export default function Login() {
   const [userId, setUserId] = useState<string | null>(null)
   const [errorMsg, setErrorMsg] = useState<string | null>(null)
   const [showPassword, setShowPassword] = useState(false)
+  const [pendingPlan, setPendingPlan] = useState<string | null>(null)
+  const [retryLoading, setRetryLoading] = useState(false)
   const showToast = (msg: string) => {
     setErrorMsg(msg)
     setTimeout(() => setErrorMsg(null), 5000)
@@ -49,9 +52,79 @@ export default function Login() {
       setIsPending(false)
       return
     }
-    await supabase.auth.getSession()
+    const user = data.user || (await supabase.auth.getUser()).data.user
+    if (!user?.id) {
+      setIsPending(false)
+      showToast('Não foi possível identificar o usuário logado.')
+      return
+    }
+    const { data: affRows, error: affErr } = await supabase
+      .from('affiliates')
+      .select('id,payment_status,plan')
+      .eq('organization_id', ORG_ID)
+      .eq('user_id', user.id)
+      .limit(1)
+    if (affErr) {
+      console.error('Erro ao consultar status de pagamento:', affErr)
+      setIsPending(false)
+      showToast('Falha ao validar status de pagamento. Tente novamente.')
+      return
+    }
+    const row = Array.isArray(affRows) ? affRows[0] : null
+    const status = row?.payment_status || 'pending_payment'
+    if (status === 'active') {
+      setIsPending(false)
+      navigate('/dashboard')
+      return
+    }
+    setPendingPlan(row?.plan || 'assinante')
     setIsPending(false)
-    navigate('/dashboard')
+    showToast('Para acessar o escritório virtual é necessário ter um plano ativo.')
+  }
+
+  const handleRetryPayment = async () => {
+    if (!email) {
+      showToast('Informe seu email para prosseguir com o pagamento.')
+      return
+    }
+    setRetryLoading(true)
+    try {
+      const supabase = getSupabase()
+      const { data: userData } = await supabase.auth.getUser()
+      const user = userData.user
+      if (!user?.id) {
+        throw new Error('Usuário não identificado')
+      }
+      const planMeta = getPlanMeta(pendingPlan)
+      const resp = await fetch('/api/create-mp-preference', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: user.id,
+          organization_id: ORG_ID,
+          plan_type: (pendingPlan || 'assinante'),
+          title: planMeta.title,
+          unit_price: planMeta.price,
+          quantity: 1,
+          email,
+        })
+      })
+      const data = await resp.json()
+      if (!resp.ok) {
+        throw new Error(data?.error || 'Erro ao iniciar pagamento')
+      }
+      const redirectUrl = data?.init_point || data?.redirect_url
+      if (redirectUrl) {
+        window.location.href = redirectUrl
+        return
+      }
+      showToast('Não foi possível obter o link de pagamento. Tente novamente.')
+    } catch (e: any) {
+      console.error('Erro no handleRetryPayment:', e?.message || e)
+      showToast(e?.message || 'Erro ao processar pagamento')
+    } finally {
+      setRetryLoading(false)
+    }
   }
 
   return (
@@ -66,7 +139,7 @@ export default function Login() {
           {/* Logo */}
           <div className="text-center mb-8">
             <img 
-              src="https://mocha-cdn.com/019ae075-432d-7f0b-9b71-b1650e85c237/Fundo-Escuro.png"
+              src="/Logo%20Oficial.png"
               alt="GUIA Empreendedor Digital"
               className="h-24 mx-auto mb-2 cursor-pointer"
               onClick={() => navigate('/')}
@@ -112,6 +185,22 @@ export default function Login() {
               </button>
             </div>
           </div>
+
+          {/* Pagamento pendente */}
+          {pendingPlan && (
+            <div className="mt-6">
+              <div className="bg-white/10 text-white p-4 rounded-md">
+                <p className="mb-3 font-medium">Para acessar o escritório virtual é necessário ter um plano ativo.</p>
+                <button
+                  onClick={handleRetryPayment}
+                  disabled={retryLoading}
+                  className="w-full bg-cta text-white py-3 rounded-md font-bold hover:bg-opacity-90 transition-all disabled:opacity-50"
+                >
+                  Clique aqui para efetuar o pagamento do plano {getPlanMeta(pendingPlan).title}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Back to Home */}
