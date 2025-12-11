@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Check, Lock, ArrowRight } from 'lucide-react';
+import { Check, Lock, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import type { User } from '@supabase/supabase-js'
 import { getSupabase } from '../lib/supabaseClient'
 import { orgSelect } from '../lib/orgQueries'
@@ -64,6 +64,7 @@ export default function Cadastro() {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showRegPassword, setShowRegPassword] = useState(false)
 
   useEffect(() => {
     const init = async () => {
@@ -78,8 +79,13 @@ export default function Cadastro() {
     }
     init()
     const loadReferrer = async () => {
-      if (referralCode) {
-        const res: any = await (orgSelect('affiliates', 'full_name') as any).eq('referral_code', referralCode).maybeSingle()
+      let code = referralCode || ''
+      if (!code) {
+        code = localStorage.getItem('referral_code') || localStorage.getItem('referralCode') || ''
+        if (code) setRefCode(code)
+      }
+      if (code) {
+        const res: any = await (orgSelect('affiliates', 'full_name') as any).eq('referral_code', code).maybeSingle()
         const data = res?.data as any
         if (data && typeof data === 'object' && 'full_name' in data) setReferrerName(String(data.full_name))
       }
@@ -314,7 +320,7 @@ export default function Cadastro() {
         {/* Header */}
         <div className="text-center mb-12">
           <img 
-            src="/programa-conexao-empresarial.jpeg"
+            src="/logo-oficial2.png"
             alt="Programa Conexão Empresarial"
             className="h-20 mx-auto mb-4 object-contain"
           />
@@ -322,7 +328,7 @@ export default function Cadastro() {
             className="font-poppins font-bold text-3xl text-primary mb-2 cursor-pointer inline-block"
             onClick={() => navigate('/')}
           >
-            Guia Portal Empreendedor
+            Conectando Empreendedores no Digital
           </div>
           <p className="text-text-light">Finalize seu cadastro e comece a crescer</p>
         </div>
@@ -439,15 +445,25 @@ export default function Cadastro() {
                   <label htmlFor="password" className="block text-text-light font-medium mb-2">
                     Senha *
                   </label>
-                  <input
-                    id="password"
-                    type="password"
-                    value={formData.password}
-                    onChange={(e) => handleChange('password', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Crie uma senha segura"
-                    required
-                  />
+                  <div className="relative">
+                    <input
+                      id="password"
+                      type={showRegPassword ? 'text' : 'password'}
+                      value={formData.password}
+                      onChange={(e) => handleChange('password', e.target.value)}
+                      className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      placeholder="Crie uma senha segura"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowRegPassword(v => !v)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-primary hover:text-accent"
+                      aria-label={showRegPassword ? 'Ocultar senha' : 'Mostrar senha'}
+                    >
+                      {showRegPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
                 </div>
 
                 <div>
@@ -503,8 +519,8 @@ export default function Cadastro() {
                     readOnly={Boolean(referralCode)}
                     className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${referralCode ? 'bg-gray-100 border-gray-300 text-gray-700' : 'border-gray-300'}`}
                   />
-                  {referralCode && referrerName && (
-                    <p className="text-sm text-green-600 mt-1">Você está sendo indicado por: {referrerName}</p>
+                  {refCode && referrerName && (
+                    <p className="text-sm text-primary mt-1">Indicado por {referrerName}</p>
                   )}
                 </div>
 

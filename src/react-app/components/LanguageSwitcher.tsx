@@ -44,7 +44,7 @@ export default function LanguageSwitcher() {
         aria-expanded={open}
       >
         {active ? (
-          <img src={active.flag} alt={active.label} className="w-6 h-6 rounded-sm" />
+          <img src={active.flag} alt={active.label} className="w-7 h-5 rounded-sm object-contain" />
         ) : (
           <Globe className="w-6 h-6" />
         )}
@@ -57,7 +57,7 @@ export default function LanguageSwitcher() {
               onClick={() => { setTranslateCookie(opt.code); window.location.reload() }}
               className="w-full flex items-center gap-2 px-3 py-2 hover:bg-gray-100"
             >
-              <img src={opt.flag} alt={opt.label} className="w-5 h-5 rounded-sm" />
+              <img src={opt.flag} alt={opt.label} className="w-6 h-4 rounded-sm object-contain" />
               <span className="text-sm">{opt.label}</span>
             </button>
           ))}
@@ -66,4 +66,3 @@ export default function LanguageSwitcher() {
     </div>
   )
 }
-

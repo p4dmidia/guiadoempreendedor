@@ -37,7 +37,7 @@ export default function Navbar() {
             Embaixadores
           </button>
           <button 
-            onClick={() => scrollToSection('beneficios')}
+            onClick={() => scrollToSection('proposito')}
             className="text-primary hover:text-accent transition-colors"
           >
             Benefícios
@@ -55,10 +55,10 @@ export default function Navbar() {
             Contato
           </button>
           <button 
-            onClick={() => navigate('/cadastro-guia-comercial')}
+            onClick={() => scrollToSection('niveis')}
             className="bg-[#104473] text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-all font-medium"
           >
-            Começar agora
+            Assine agora
           </button>
           <button 
             onClick={() => navigate('/login')}
@@ -114,10 +114,10 @@ export default function Navbar() {
               Embaixadores
             </button>
             <button 
-              onClick={() => { setMobileMenuOpen(false); navigate('/cadastro-guia-comercial'); }}
+              onClick={() => { setMobileMenuOpen(false); scrollToSection('niveis'); }}
               className="bg-[#104473] text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-all font-medium w-full text-left"
             >
-              Começar agora
+              Assine agora
             </button>
           <button 
             onClick={() => { setMobileMenuOpen(false); navigate('/login'); }}

@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Eye, Users, TrendingUp, Check, User, Crown, ArrowRight, ArrowDown, Layers, ChevronsUp, X, ShieldCheck, Lock, Headphones, Target, Zap, CreditCard, Scale, LayoutDashboard, RefreshCw } from 'lucide-react';
 import Navbar from '@/react-app/components/Navbar';
 import Footer from '@/react-app/components/Footer';
@@ -25,6 +26,16 @@ export default function Home() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search)
+      const ref = params.get('ref')
+      if (ref && ref.trim()) {
+        localStorage.setItem('referral_code', ref.trim())
+      }
+    } catch {}
+  }, [])
 
   return (
     <div className="min-h-screen font-poppins">
@@ -139,7 +150,7 @@ export default function Home() {
       </section>
 
       {/* Purpose Section */}
-      <section className="py-16 px-6 bg-body">
+      <section id="proposito" className="py-16 px-6 bg-body">
         <div className="max-w-5xl mx-auto">
           <div className="flex justify-center mb-4">
             <span className="inline-flex items-center bg-cta text-white px-4 py-2 rounded-md font-semibold">Nosso Propósito</span>
@@ -722,7 +733,7 @@ export default function Home() {
               Escolher Meu Plano
             </button>
             <button 
-              onClick={() => navigate('/cadastro-guia-comercial')}
+              onClick={() => window.open('https://www.guiaportalempreendedor.com.br/cadastro-guia-comercial', '_blank')}
               className="bg-cta text-white px-6 py-3 rounded-md font-bold hover:bg-opacity-90 transition-all"
             >
               CADASTRE-SE NO GUIA

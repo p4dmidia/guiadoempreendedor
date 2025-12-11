@@ -135,37 +135,37 @@ export default function Login() {
             {errorMsg}
           </div>
         )}
-        <div className="rounded-lg shadow-lg p-8" style={{ backgroundColor: '#104473' }}>
+        <div className="rounded-lg shadow-lg p-8 bg-white">
           {/* Logo */}
           <div className="text-center mb-8">
             <img 
-              src="/Logo%20Oficial.png"
+              src="/logo-oficial2.png"
               alt="GUIA Empreendedor Digital"
               className="h-24 mx-auto mb-2 cursor-pointer"
               onClick={() => navigate('/')}
             />
-            <div className="flex items-center justify-center gap-2 text-white">
-              <Lock className="w-5 h-5 text-white" />
-              <span className="font-medium text-white">Área Segura</span>
+            <div className="flex items-center justify-center gap-2 text-primary">
+              <Lock className="w-5 h-5 text-primary" />
+              <span className="font-medium text-primary">Área Segura</span>
             </div>
           </div>
 
           {/* Title */}
-          <h1 className="font-poppins font-bold text-2xl text-white text-center mb-8">
+          <h1 className="font-poppins font-bold text-2xl text-primary text-center mb-8">
             Acesse seu Escritório Virtual
           </h1>
 
           {/* Email/Senha */}
           <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); handlePasswordLogin(); }}>
             <div>
-              <label htmlFor="email" className="block text-white font-medium mb-2">Email</label>
+              <label htmlFor="email" className="block text-primary font-medium mb-2">Email</label>
               <input id="email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
             </div>
             <div>
-              <label htmlFor="password" className="block text-white font-medium mb-2">Senha</label>
+              <label htmlFor="password" className="block text-primary font-medium mb-2">Senha</label>
               <div className="relative">
                 <input id="password" type={showPassword ? 'text' : 'password'} autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} required className="w-full px-4 py-3 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
-                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#104473] hover:text-white" aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}>
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-primary hover:text-accent" aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}>
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
@@ -175,11 +175,11 @@ export default function Login() {
 
           {/* Links */}
           <div className="mt-6 text-center">
-            <div className="text-white text-sm">
+            <div className="text-primary text-sm">
               Não tem conta?{' '}
               <button 
                 onClick={() => navigate('/cadastro-guia-comercial')}
-                className="text-white hover:underline font-medium"
+                className="text-primary hover:underline font-medium"
               >
                 Escolha seu plano
               </button>
