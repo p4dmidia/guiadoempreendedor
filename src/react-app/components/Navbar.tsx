@@ -25,30 +25,6 @@ export default function Navbar() {
         
         <div className="hidden md:flex items-center gap-8">
           <button 
-            onClick={() => scrollToSection('sobre')}
-            className="text-primary hover:text-accent transition-colors"
-          >
-            Sobre
-          </button>
-          <button 
-            onClick={() => scrollToSection('beneficios')}
-            className="text-primary hover:text-accent transition-colors"
-          >
-            Benefícios
-          </button>
-          <button 
-            onClick={() => scrollToSection('planos')}
-            className="text-primary hover:text-accent transition-colors"
-          >
-            Níveis
-          </button>
-          <button 
-            onClick={() => scrollToSection('contato')}
-            className="text-primary hover:text-accent transition-colors"
-          >
-            Contato
-          </button>
-          <button 
             onClick={() => scrollToSection('niveis')}
             className="bg-[#104473] text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-all font-medium"
           >
@@ -78,45 +54,21 @@ export default function Navbar() {
         <div className="md:hidden mt-4 pt-4 border-t border-primary/20">
           <div className="flex flex-col gap-4">
             <button 
-              onClick={() => { setMobileMenuOpen(false); scrollToSection('sobre'); }}
-              className="text-primary text-left hover:text-accent transition-colors"
-            >
-              Sobre
-            </button>
-            <button 
-              onClick={() => { setMobileMenuOpen(false); scrollToSection('beneficios'); }}
-              className="text-primary text-left hover:text-accent transition-colors"
-            >
-              Benefícios
-            </button>
-            <button 
-              onClick={() => { setMobileMenuOpen(false); scrollToSection('planos'); }}
-              className="text-primary text-left hover:text-accent transition-colors"
-            >
-              Níveis
-            </button>
-            <button 
-              onClick={() => { setMobileMenuOpen(false); scrollToSection('contato'); }}
-              className="text-primary text-left hover:text-accent transition-colors"
-            >
-              Contato
-            </button>
-            <button 
               onClick={() => { setMobileMenuOpen(false); scrollToSection('niveis'); }}
               className="bg-[#104473] text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition-all font-medium w-full text-left"
             >
               Assine agora
             </button>
-          <button 
-            onClick={() => { setMobileMenuOpen(false); navigate('/login'); }}
-            className="border-2 border-primary text-primary px-6 py-2 rounded-md hover:bg-primary hover:text-white transition-all font-medium w-full text-left"
-          >
-            Entrar
-          </button>
-          <div className="pt-2 border-t border-primary/20">
-            <LanguageSwitcher />
+            <button 
+              onClick={() => { setMobileMenuOpen(false); navigate('/login'); }}
+              className="border-2 border-primary text-primary px-6 py-2 rounded-md hover:bg-primary hover:text-white transition-all font-medium w-full text-left"
+            >
+              Entrar
+            </button>
+            <div className="pt-2 border-t border-primary/20">
+              <LanguageSwitcher />
+            </div>
           </div>
-        </div>
         </div>
       )}
     </nav>

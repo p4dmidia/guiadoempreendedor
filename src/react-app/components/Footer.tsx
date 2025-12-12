@@ -34,30 +34,12 @@ export default function Footer() {
             </div>
           </div>
         
-        <div>
-          <h4 className="font-poppins font-semibold mb-4">Programa</h4>
-          <ul className="space-y-2 text-gray-300 text-sm">
-            <li><a href="#sobre" className="hover:text-accent transition-colors">Sobre</a></li>
-            <li><a href="#proposito" className="hover:text-accent transition-colors">Benefícios</a></li>
-            <li><a href="#planos" className="hover:text-accent transition-colors">Níveis</a></li>
-            <li><a href="#contato" className="hover:text-accent transition-colors">Contato</a></li>
-          </ul>
-        </div>
+        
 
-        <div>
-          <h4 className="font-poppins font-semibold mb-4">Links Úteis</h4>
-          <ul className="space-y-2 text-gray-300 text-sm">
-            <li><a href="https://www.guiaportalempreendedor.com.br" className="hover:text-accent transition-colors" target="_blank" rel="noopener noreferrer">Portal Principal</a></li>
-            <li><a href="#planos" className="hover:text-accent transition-colors">Planos</a></li>
-            <li><a href="/embaixadores" className="hover:text-accent transition-colors">Embaixadores</a></li>
-            <li><a href="#faq" className="hover:text-accent transition-colors">FAQ</a></li>
-          </ul>
-        </div>
+        
           
           <div>
-            <h4 className="font-poppins font-semibold mb-4">
-              <a href="https://bio.guiaportalempreendedor.com.br" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">CAC</a>
-            </h4>
+            <h4 className="font-poppins font-semibold mb-4">Contato</h4>
             <ul className="space-y-2 text-gray-300 text-sm">
               <li className="flex items-center gap-2"><Mail className="w-4 h-4 text-cta" /> contato@guiaportalempreendedor.com.br</li>
               <li className="flex items-center gap-2"><Phone className="w-4 h-4 text-cta" /> (11) 5196-5828</li>
