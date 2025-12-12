@@ -41,168 +41,13 @@ export default function Home() {
     <div className="min-h-screen font-poppins">
       <Navbar />
       
-      {/* Hero Section */}
-      <section id="inicio" className="relative py-24 px-6 bg-center bg-cover" style={{ backgroundImage: "url('/hero-conexao.jpg')" }}>
-        <div className="absolute inset-0 bg-gradient-to-b from-[rgba(6,29,44,0.55)] to-[rgba(6,29,44,0.85)]"></div>
-        <div className="relative max-w-4xl mx-auto text-center">
-          <div className="flex justify-center mb-4">
-            <span className="inline-flex items-center gap-2 bg-cta text-white px-4 py-2 rounded-md font-semibold text-base md:text-lg">
-              <Check className="w-5 h-5 text-white" />
-              Programa Oficial do Guia Portal Empreendedor
-            </span>
-          </div>
-          <h1 className="font-poppins font-bold text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight">
-            PROGRAMA
-            <br />
-            <span className="text-cta">CONEXÃO EMPRESARIAL</span>
-          </h1>
-          <p className="text-lg md:text-xl mb-2 font-semibold text-accent">
-            Ecossistema Empresarial • Networking Qualificado • Crescimento Digital
-          </p>
-          <p className="text-white text-lg md:text-xl mb-8 font-medium">
-            O principal ecossistema de networking qualificado e oportunidades de negócios do Brasil
-          </p>
-          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div className="rounded-lg border border-primary bg-primary/90 text-white p-4 flex items-center gap-3">
-              <span className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/30">
-                <User className="w-6 h-6 text-white" />
-              </span>
-              <span className="font-poppins font-semibold">Assinante</span>
-            </div>
-            <div className="rounded-lg border border-primary bg-primary/90 text-white p-4 flex items-center gap-3">
-              <span className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/30">
-                <Users className="w-6 h-6 text-white" />
-              </span>
-              <span className="font-poppins font-semibold">Associado</span>
-            </div>
-            <div className="rounded-lg border border-primary bg-primary/90 text-white p-4 flex items-center gap-3">
-              <span className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/30">
-                <Crown className="w-6 h-6 text-white" />
-              </span>
-              <span className="font-poppins font-semibold">Embaixador</span>
-            </div>
-          </div>
-          <div className="flex flex-wrap justify-center gap-4">
-            <button 
-              onClick={scrollToPlanos}
-              className="bg-cta text-white px-8 py-4 rounded-md font-bold text-lg hover:bg-opacity-90 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 inline-flex items-center gap-2"
-            >
-              Escolher Meu Plano
-              <ArrowRight className="w-5 h-5" />
-            </button>
-            <button 
-              onClick={scrollToSobre}
-              className="border-2 px-8 py-4 rounded-md font-bold text-lg transition-all inline-flex items-center gap-2"
-              style={{ backgroundColor: 'rgba(222, 220, 225, 0.5)', color: '#FFFFFF', borderColor: '#FFFFFF' }}
-            >
-              Conhecer o Programa
-              <ArrowDown className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-      </section>
 
       
 
-      {/* Welcome Section */}
-      <section id="sobre" className="py-16 px-6 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex justify-center mb-4">
-            <span className="inline-flex items-center bg-cta text-white px-4 py-2 rounded-md font-semibold">Ecossistema Empresarial Líder no digital</span>
-          </div>
-          <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary mb-6">
-            O Principal Ecossistema de
-            <br />
-            Networking Qualificado do Brasil
-          </h2>
-          <p className="text-text-light text-lg mb-6 leading-relaxed">
-            O <span style={{ color: '#104473' }} className="font-semibold">Programa Conexão Empresarial</span> é reconhecido como o <span style={{ color: '#104473' }} className="font-semibold">principal ecossistema empresarial e de networking qualificado do Brasil</span>, conectando empreendedores brasileiros com oportunidades reais de crescimento.
-          </p>
-          <p className="text-text-light text-lg mb-6 leading-relaxed">
-            Esta iniciativa pioneira reúne <span style={{ color: '#104473' }} className="font-semibold">visibilidade estratégica, networking B2B qualificado</span> e <span style={{ color: '#104473' }} className="font-semibold">oportunidades tangíveis de negócios</span> para empreendedores de todo o Brasil que buscam se destacar no mercado digital nacional e internacional.
-            <br /><br />
-            Mais do que uma plataforma de negócios, oferecemos um <span style={{ color: '#104473' }} className="font-semibold">ecossistema empresarial completo</span> onde empresas crescem, conectam-se e prosperam através do networking qualificado e parcerias estratégicas.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-8 rounded-lg bg-body hover:shadow-lg transition-all">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-cta rounded-full mb-6">
-                <Layers className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="font-poppins font-semibold text-xl text-primary mb-4">Estrutura em 3 Níveis</h3>
-              <p className="text-text-light">Organizado em Assinante, Associado e Embaixador, permitindo que cada empreendedor escolha o nível adequado ao seu momento de negócio.</p>
-            </div>
-            <div className="text-center p-8 rounded-lg bg-body hover:shadow-lg transition-all">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-cta rounded-full mb-6">
-                <ChevronsUp className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="font-poppins font-semibold text-xl text-primary mb-4">Benefícios Progressivos</h3>
-              <p className="text-text-light">Cada nível desbloqueia novas vantagens que fortalecem sua presença digital, ampliam suas conexões e aumentam seu potencial de retorno.</p>
-            </div>
-            <div className="text-center p-8 rounded-lg bg-body hover:shadow-lg transition-all">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-cta rounded-full mb-6">
-                <TrendingUp className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="font-poppins font-semibold text-xl text-primary mb-4">Crescimento Empresarial</h3>
-              <p className="text-text-light">Possibilita ganhos por indicação e expansão de rede, transformando relacionamento em uma fonte sustentável de receita e autoridade.</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Purpose Section */}
-      <section id="proposito" className="py-16 px-6 bg-body">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex justify-center mb-4">
-            <span className="inline-flex items-center bg-cta text-white px-4 py-2 rounded-md font-semibold">Nosso Propósito</span>
-          </div>
-          <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary text-center mb-12">
-            Missão, Visão e Valores
-          </h2>
-          <p className="text-center text-text-light mb-12 text-lg">
-            Os princípios que nos guiam rumo ao sucesso coletivo
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg p-8 shadow-md">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-cta rounded-full mb-4">
-                <Target className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-poppins font-bold text-xl text-accent mb-4">
-                Nossa Missão
-              </h3>
-              <p className="text-text-light leading-relaxed">
-                Proporcionar crescimento empresarial por meio de posicionamento estratégico, conexões relevantes e oportunidades reais de negócio.
-              </p>
-            </div>
 
-            <div className="bg-white rounded-lg p-8 shadow-md">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-cta rounded-full mb-4">
-                <Eye className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-poppins font-bold text-xl text-accent mb-4">
-                Nossa Visão
-              </h3>
-              <p className="text-text-light leading-relaxed">
-                Tornar-se o principal ecossistema digital brasileiro de conexões empresariais e colaboração empreendedora do país.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-lg p-8 shadow-md">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-cta rounded-full mb-4">
-                <ShieldCheck className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-poppins font-bold text-xl text-accent mb-4">
-                Nossos Valores
-              </h3>
-              <p className="text-text-light leading-relaxed">
-                Ética, Transparência, Crescimento Coletivo, Empreendedorismo Real e Oportunidades Legítimas em todas as interações.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Nossa Essência Section (moved below Propósito) */}
+      {/* Nossa Essência Section (removida) */}
+      {false && (
       <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-center mb-4">
@@ -262,8 +107,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
-      {/* Pilares Section */}
+      {/* Pilares Section (removida) */}
+      {false && (
       <section id="beneficios" className="py-20 px-6 bg-primary">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-poppins font-bold text-3xl md:text-4xl text-white text-center mb-4">
@@ -312,6 +159,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Pricing Section */}
       <section id="niveis" className="py-20 px-6 bg-body">
@@ -469,7 +317,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Passo a Passo Section (moved above Diretrizes) */}
+      {/* Passo a Passo Section (removida) */}
+      {false && (
       <section className="py-20 px-6 bg-body">
         <div className="max-w-5xl mx-auto">
           <div className="flex justify-center mb-4">
@@ -509,8 +358,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
-      {/* Comparativo de Níveis */}
+      {/* Comparativo de Níveis (removida) */}
+      {false && (
       <section id="planos" className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-poppins font-bold text-3xl md:text-4xl text-primary text-center mb-2">Compare os Níveis</h2>
@@ -595,8 +446,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
-      {/* Garantia Total */}
+      {/* Garantia Total (removida) */}
+      {false && (
       <section className="py-10 px-6 bg-blue-100/60">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white/10 rounded-lg p-6 text-center">
@@ -609,10 +462,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       
 
 
+      {false && (
       <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="flex justify-center bg-cta text-white px-4 py-2 rounded-md font-semibold w-fit mx-auto text-center">
@@ -663,9 +518,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
-      {/* CTA Final Section */}
-      <FAQSection />
+      {/* CTA Final Section (removida) */}
+      {false && <FAQSection />}
+      {false && (
       <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="flex justify-center bg-cta text-white px-4 py-2 rounded-md font-semibold w-fit mx-auto text-center">Transparência Total</h2>
@@ -717,6 +574,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
+      {false && (
       <section className="py-20 px-6 bg-gradient-to-b from-primary to-secondary text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-poppins font-bold text-3xl md:text-4xl mb-6">
@@ -761,6 +620,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       <Footer />
     </div>

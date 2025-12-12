@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { LineChart as LineIcon, Users, DollarSign, Settings, LogOut, List, Percent } from 'lucide-react'
+import { LineChart as LineIcon, Users, DollarSign, Settings, LogOut, Percent } from 'lucide-react'
 import { useState } from 'react'
 
 export default function AdminSidebar() {
@@ -11,7 +11,6 @@ export default function AdminSidebar() {
       <SidebarLogo />
       <nav className="space-y-2">
         <button onClick={() => navigate('/admin/dashboard')} className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md bg-white/10 hover:bg-white/20"><LineIcon className="w-4 h-4" />Visão Geral</button>
-        <button onClick={() => navigate('/admin/blog')} className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white/10"><List className="w-4 h-4" />Gerenciar Blog</button>
         <button onClick={() => navigate('/admin/cupons')} className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white/10"><Percent className="w-4 h-4" />Cupons</button>
         <button onClick={() => navigate('/admin/afiliados')} className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white/10"><Users className="w-4 h-4" />Gerenciar Afiliados</button>
         <button onClick={() => navigate('/admin/saques')} className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white/10"><DollarSign className="w-4 h-4" />Financeiro / Saques</button>

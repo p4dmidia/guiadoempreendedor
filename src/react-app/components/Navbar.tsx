@@ -31,13 +31,7 @@ export default function Navbar() {
             Sobre
           </button>
           <button 
-            onClick={() => navigate('/embaixadores')}
-            className="text-primary hover:text-accent transition-colors"
-          >
-            Embaixadores
-          </button>
-          <button 
-            onClick={() => scrollToSection('proposito')}
+            onClick={() => scrollToSection('beneficios')}
             className="text-primary hover:text-accent transition-colors"
           >
             Benefícios
@@ -106,12 +100,6 @@ export default function Navbar() {
               className="text-primary text-left hover:text-accent transition-colors"
             >
               Contato
-            </button>
-            <button 
-              onClick={() => { setMobileMenuOpen(false); navigate('/embaixadores'); }}
-              className="text-primary text-left hover:text-accent transition-colors"
-            >
-              Embaixadores
             </button>
             <button 
               onClick={() => { setMobileMenuOpen(false); scrollToSection('niveis'); }}
