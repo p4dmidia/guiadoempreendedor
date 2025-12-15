@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { orgSelect, orgUpdate, orgDelete } from '@/react-app/lib/orgQueries'
-import { Users, Network, Ban, Pencil, Trash2, Download, Plus } from 'lucide-react'
+import { Users, Network, Ban, Pencil, Trash2, Download, Plus, Lock } from 'lucide-react'
 import AdminSidebar from '@/react-app/components/AdminSidebar'
 
-type Affiliate = { id: number; full_name: string; email: string; plan: string; status?: string; referral_code?: string | null; created_at: string; cpf?: string; pix_key?: string; address?: string }
+type Affiliate = { id: number; user_id?: string; full_name: string; email: string; plan: string; status?: string; referral_code?: string | null; created_at: string; cpf?: string; pix_key?: string; address?: string }
 type Child = { id: number; full_name: string; plan: string; created_at: string }
 
 export default function AdminAffiliates() {
@@ -16,10 +16,12 @@ export default function AdminAffiliates() {
   const [selected, setSelected] = useState<Record<number, boolean>>({})
   const [editing, setEditing] = useState<Affiliate | null>(null)
   const [editForm, setEditForm] = useState({ full_name: '', email: '', plan: '', cpf: '', pix_key: '', address: '' })
+  const [resetting, setResetting] = useState<Affiliate | null>(null)
+  const [newPassword, setNewPassword] = useState('')
 
   useEffect(() => {
     const load = async () => {
-      const res: any = await (orgSelect('affiliates', 'id, full_name, email, plan, status, referral_code, created_at, cpf, pix_key, address') as any).order('created_at', { ascending: false })
+      const res: any = await (orgSelect('affiliates', 'id, user_id, full_name, email, plan, status, referral_code, created_at, cpf, pix_key, address') as any).order('created_at', { ascending: false })
       setRows(((res?.data as any) || []) as any)
     }
     load()
@@ -142,6 +144,7 @@ export default function AdminAffiliates() {
                         <button onClick={() => openNetwork(r)} className="inline-flex items-center justify-center gap-1 h-9 px-3 min-w-[120px] bg-cta text-white rounded-md hover:bg-opacity-90"><Network className="w-4 h-4" />Ver Rede</button>
                       )}
                       <button onClick={() => openEdit(r)} className="inline-flex items-center justify-center gap-1 h-9 px-3 min-w-[120px] bg-accent text-white rounded-md hover:bg-opacity-90"><Pencil className="w-4 h-4" />Editar</button>
+                      <button onClick={() => setResetting(r)} className="inline-flex items-center justify-center gap-1 h-9 px-3 min-w-[140px] bg-yellow-500 text-white rounded-md hover:bg-yellow-600"><Lock className="w-4 h-4" />Alterar Senha</button>
                       <button onClick={() => blockRow(r)} className="inline-flex items-center justify-center gap-1 h-9 px-3 min-w-[120px] bg-primary text-white rounded-md hover:bg-opacity-90"><Ban className="w-4 h-4" />Bloquear</button>
                       <button onClick={() => deleteRow(r)} className="inline-flex items-center justify-center gap-1 h-9 px-3 min-w-[120px] bg-red-600 text-white rounded-md hover:bg-red-700"><Trash2 className="w-4 h-4" />Excluir</button>
                     </div>
@@ -217,6 +220,41 @@ export default function AdminAffiliates() {
               <div className="flex gap-2 mt-4">
                 <button onClick={saveEdit} className="px-4 py-2 bg-primary text-white rounded-md">Salvar</button>
                 <button onClick={() => setEditing(null)} className="px-4 py-2 bg-gray-200 text-primary rounded-md">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {resetting && (
+          <div className="fixed inset-0 bg-black/30 flex items-center justify-center">
+            <div className="w-full max-w-md bg-white rounded-lg p-6">
+              <h2 className="font-poppins font-semibold text-lg text-primary mb-4">Redefinir Senha de {resetting.full_name}</h2>
+              <div>
+                <label className="block text-text-light text-sm mb-1">Nova Senha</label>
+                <input type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-md" />
+              </div>
+              <div className="flex gap-2 mt-4">
+                <button
+                  onClick={async () => {
+                    if (!resetting?.user_id) { alert('Usuário sem vínculo de Auth'); return }
+                    if (!newPassword.trim()) { alert('Informe a nova senha'); return }
+                    const resp = await fetch('/api/admin/reset-password', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ userId: resetting.user_id, newPassword })
+                    })
+                    if (!resp.ok) {
+                      const data = await resp.json().catch(() => ({}))
+                      alert(data?.error || 'Erro ao redefinir senha')
+                      return
+                    }
+                    alert('Senha redefinida com sucesso')
+                    setResetting(null)
+                    setNewPassword('')
+                  }}
+                  className="px-4 py-2 bg-primary text-white rounded-md"
+                >Salvar</button>
+                <button onClick={() => { setResetting(null); setNewPassword('') }} className="px-4 py-2 bg-gray-200 text-primary rounded-md">Cancelar</button>
               </div>
             </div>
           </div>
